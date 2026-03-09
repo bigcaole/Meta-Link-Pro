@@ -4,18 +4,130 @@
     "name": "Google 平台",
     "kind": "platform",
     "children": [
-      {"id": "svc-youtube", "name": "YouTube", "kind": "service", "provider": "youtube", "ruleType": "domain", "domains": ["youtube.com", "ytimg.com", "googlevideo.com"]},
-      {"id": "svc-gmail", "name": "Gmail", "kind": "service", "provider": "gmail", "ruleType": "domain", "domains": ["gmail.com", "googlemail.com"]},
-      {"id": "svc-google-search", "name": "Google Search", "kind": "service", "provider": "google-search", "ruleType": "domain", "domains": ["google.com", "googleapis.com"]},
-      {"id": "svc-gemini", "name": "Gemini", "kind": "service", "provider": "gemini", "ruleType": "domain", "domains": ["gemini.google.com", "bard.google.com"]},
-      {"id": "svc-google-drive", "name": "Google Drive", "kind": "service", "ruleType": "domain", "domains": ["drive.google.com", "docs.google.com", "gstatic.com"]},
-      {"id": "svc-google-play", "name": "Google Play", "kind": "service", "ruleType": "domain", "domains": ["play.google.com", "gvt1.com"]},
-      {"id": "svc-google-maps", "name": "Google Maps", "kind": "service", "ruleType": "domain", "domains": ["maps.google.com", "maps.gstatic.com"]},
-      {"id": "svc-google-meet", "name": "Google Meet", "kind": "service", "ruleType": "domain", "domains": ["meet.google.com", "meetings.google.com"]},
-      {"id": "svc-google-cloud", "name": "Google Cloud", "kind": "service", "ruleType": "domain", "domains": ["cloud.google.com", "gcp.gvt2.com"]},
-      {"id": "svc-google-firebase", "name": "Firebase", "kind": "service", "ruleType": "domain", "domains": ["firebase.google.com", "firebasestorage.googleapis.com"]},
-      {"id": "svc-google-chrome", "name": "Chrome Web Store", "kind": "service", "ruleType": "domain", "domains": ["chromewebstore.google.com"]},
-      {"id": "svc-google-android", "name": "Android", "kind": "service", "ruleType": "domain", "domains": ["android.com"]}
+      {
+        "id": "svc-youtube",
+        "name": "YouTube",
+        "kind": "service",
+        "provider": "youtube",
+        "ruleType": "domain",
+        "domains": [
+          "youtube.com",
+          "ytimg.com",
+          "googlevideo.com"
+        ]
+      },
+      {
+        "id": "svc-gmail",
+        "name": "Gmail",
+        "kind": "service",
+        "provider": "gmail",
+        "ruleType": "domain",
+        "domains": [
+          "gmail.com",
+          "googlemail.com"
+        ]
+      },
+      {
+        "id": "svc-google-search",
+        "name": "Google Search",
+        "kind": "service",
+        "provider": "google-search",
+        "ruleType": "domain",
+        "domains": [
+          "google.com",
+          "googleapis.com"
+        ]
+      },
+      {
+        "id": "svc-gemini",
+        "name": "Gemini",
+        "kind": "service",
+        "provider": "gemini",
+        "ruleType": "domain",
+        "domains": [
+          "gemini.google.com",
+          "bard.google.com"
+        ]
+      },
+      {
+        "id": "svc-google-drive",
+        "name": "Google Drive",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "drive.google.com",
+          "docs.google.com",
+          "gstatic.com"
+        ]
+      },
+      {
+        "id": "svc-google-play",
+        "name": "Google Play",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "play.google.com",
+          "gvt1.com"
+        ]
+      },
+      {
+        "id": "svc-google-maps",
+        "name": "Google Maps",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "maps.google.com",
+          "maps.gstatic.com"
+        ]
+      },
+      {
+        "id": "svc-google-meet",
+        "name": "Google Meet",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "meet.google.com",
+          "meetings.google.com"
+        ]
+      },
+      {
+        "id": "svc-google-cloud",
+        "name": "Google Cloud",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "cloud.google.com",
+          "gcp.gvt2.com"
+        ]
+      },
+      {
+        "id": "svc-google-firebase",
+        "name": "Firebase",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "firebase.google.com",
+          "firebasestorage.googleapis.com"
+        ]
+      },
+      {
+        "id": "svc-google-chrome",
+        "name": "Chrome Web Store",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "chromewebstore.google.com"
+        ]
+      },
+      {
+        "id": "svc-google-android",
+        "name": "Android",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "android.com"
+        ]
+      }
     ]
   },
   {
@@ -23,18 +135,128 @@
     "name": "Microsoft 平台",
     "kind": "platform",
     "children": [
-      {"id": "svc-office", "name": "Office", "kind": "service", "provider": "office", "ruleType": "domain", "domains": ["office.com", "office365.com"]},
-      {"id": "svc-azure", "name": "Azure", "kind": "service", "provider": "azure", "ruleType": "domain", "domains": ["azure.com", "azureedge.net"]},
-      {"id": "svc-onedrive", "name": "OneDrive", "kind": "service", "ruleType": "domain", "domains": ["onedrive.live.com", "1drv.com"]},
-      {"id": "svc-teams", "name": "Teams", "kind": "service", "ruleType": "domain", "domains": ["teams.microsoft.com", "skype.com"]},
-      {"id": "svc-bing", "name": "Bing", "kind": "service", "ruleType": "domain", "domains": ["bing.com", "microsoft.com"]},
-      {"id": "svc-xbox", "name": "Xbox", "kind": "service", "ruleType": "domain", "domains": ["xbox.com", "xboxlive.com"]},
-      {"id": "svc-github-platform", "name": "GitHub", "kind": "service", "ruleType": "domain", "domains": ["github.com", "githubusercontent.com"]},
-      {"id": "svc-linkedin-platform", "name": "LinkedIn", "kind": "service", "ruleType": "domain", "domains": ["linkedin.com", "licdn.com"]},
-      {"id": "svc-microsoft-outlook", "name": "Outlook", "kind": "service", "ruleType": "domain", "domains": ["outlook.com", "live.com"]},
-      {"id": "svc-microsoft-copilot", "name": "Microsoft Copilot", "kind": "service", "ruleType": "domain", "domains": ["copilot.microsoft.com", "bing.com"]},
-      {"id": "svc-microsoft-store", "name": "Microsoft Store", "kind": "service", "ruleType": "domain", "domains": ["microsoftstore.com", "storeedgefd.dsx.mp.microsoft.com"]},
-      {"id": "svc-windows-update", "name": "Windows Update", "kind": "service", "ruleType": "domain", "domains": ["windowsupdate.com", "update.microsoft.com"]}
+      {
+        "id": "svc-office",
+        "name": "Office",
+        "kind": "service",
+        "provider": "office",
+        "ruleType": "domain",
+        "domains": [
+          "office.com",
+          "office365.com"
+        ]
+      },
+      {
+        "id": "svc-azure",
+        "name": "Azure",
+        "kind": "service",
+        "provider": "azure",
+        "ruleType": "domain",
+        "domains": [
+          "azure.com",
+          "azureedge.net"
+        ]
+      },
+      {
+        "id": "svc-onedrive",
+        "name": "OneDrive",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "onedrive.live.com",
+          "1drv.com"
+        ]
+      },
+      {
+        "id": "svc-teams",
+        "name": "Teams",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "teams.microsoft.com",
+          "skype.com"
+        ]
+      },
+      {
+        "id": "svc-bing",
+        "name": "Bing",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "bing.com",
+          "microsoft.com"
+        ]
+      },
+      {
+        "id": "svc-xbox",
+        "name": "Xbox",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "xbox.com",
+          "xboxlive.com"
+        ]
+      },
+      {
+        "id": "svc-github-platform",
+        "name": "GitHub",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "github.com",
+          "githubusercontent.com"
+        ]
+      },
+      {
+        "id": "svc-linkedin-platform",
+        "name": "LinkedIn",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "linkedin.com",
+          "licdn.com"
+        ]
+      },
+      {
+        "id": "svc-microsoft-outlook",
+        "name": "Outlook",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "outlook.com",
+          "live.com"
+        ]
+      },
+      {
+        "id": "svc-microsoft-copilot",
+        "name": "Microsoft Copilot",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "copilot.microsoft.com",
+          "bing.com"
+        ]
+      },
+      {
+        "id": "svc-microsoft-store",
+        "name": "Microsoft Store",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "microsoftstore.com",
+          "storeedgefd.dsx.mp.microsoft.com"
+        ]
+      },
+      {
+        "id": "svc-windows-update",
+        "name": "Windows Update",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "windowsupdate.com",
+          "update.microsoft.com"
+        ]
+      }
     ]
   },
   {
@@ -42,16 +264,102 @@
     "name": "Apple 平台",
     "kind": "platform",
     "children": [
-      {"id": "svc-icloud", "name": "iCloud", "kind": "service", "provider": "icloud", "ruleType": "domain", "domains": ["icloud.com", "apple-cloudkit.com"]},
-      {"id": "svc-appstore", "name": "App Store", "kind": "service", "provider": "appstore", "ruleType": "domain", "domains": ["apps.apple.com", "mzstatic.com"]},
-      {"id": "svc-apple-music", "name": "Apple Music", "kind": "service", "provider": "applemusic", "ruleType": "domain", "domains": ["music.apple.com"]},
-      {"id": "svc-apple-tv", "name": "Apple TV+", "kind": "service", "ruleType": "domain", "domains": ["tv.apple.com"]},
-      {"id": "svc-imessage", "name": "iMessage", "kind": "service", "ruleType": "domain", "domains": ["ess.apple.com", "push.apple.com"]},
-      {"id": "svc-facetime", "name": "FaceTime", "kind": "service", "ruleType": "domain", "domains": ["facetime.apple.com"]},
-      {"id": "svc-apple-maps", "name": "Apple Maps", "kind": "service", "ruleType": "domain", "domains": ["maps.apple.com"]},
-      {"id": "svc-apple-news", "name": "Apple News", "kind": "service", "ruleType": "domain", "domains": ["apple.news"]},
-      {"id": "svc-apple-arcade", "name": "Apple Arcade", "kind": "service", "ruleType": "domain", "domains": ["arcade.apple.com"]},
-      {"id": "svc-testflight", "name": "TestFlight", "kind": "service", "ruleType": "domain", "domains": ["testflight.apple.com"]}
+      {
+        "id": "svc-icloud",
+        "name": "iCloud",
+        "kind": "service",
+        "provider": "icloud",
+        "ruleType": "domain",
+        "domains": [
+          "icloud.com",
+          "apple-cloudkit.com"
+        ]
+      },
+      {
+        "id": "svc-appstore",
+        "name": "App Store",
+        "kind": "service",
+        "provider": "appstore",
+        "ruleType": "domain",
+        "domains": [
+          "apps.apple.com",
+          "mzstatic.com"
+        ]
+      },
+      {
+        "id": "svc-apple-music",
+        "name": "Apple Music",
+        "kind": "service",
+        "provider": "applemusic",
+        "ruleType": "domain",
+        "domains": [
+          "music.apple.com"
+        ]
+      },
+      {
+        "id": "svc-apple-tv",
+        "name": "Apple TV+",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "tv.apple.com"
+        ]
+      },
+      {
+        "id": "svc-imessage",
+        "name": "iMessage",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ess.apple.com",
+          "push.apple.com"
+        ]
+      },
+      {
+        "id": "svc-facetime",
+        "name": "FaceTime",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "facetime.apple.com"
+        ]
+      },
+      {
+        "id": "svc-apple-maps",
+        "name": "Apple Maps",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "maps.apple.com"
+        ]
+      },
+      {
+        "id": "svc-apple-news",
+        "name": "Apple News",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "apple.news"
+        ]
+      },
+      {
+        "id": "svc-apple-arcade",
+        "name": "Apple Arcade",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "arcade.apple.com"
+        ]
+      },
+      {
+        "id": "svc-testflight",
+        "name": "TestFlight",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "testflight.apple.com"
+        ]
+      }
     ]
   },
   {
@@ -59,15 +367,92 @@
     "name": "Amazon 平台",
     "kind": "platform",
     "children": [
-      {"id": "svc-amazon", "name": "Amazon", "kind": "service", "ruleType": "domain", "domains": ["amazon.com", "amazonaws.com"]},
-      {"id": "svc-prime-video-platform", "name": "Prime Video", "kind": "service", "ruleType": "domain", "domains": ["primevideo.com", "amazonvideo.com"]},
-      {"id": "svc-aws", "name": "AWS", "kind": "service", "ruleType": "domain", "domains": ["aws.amazon.com", "amazonaws.com"]},
-      {"id": "svc-twitch-platform", "name": "Twitch", "kind": "service", "ruleType": "domain", "domains": ["twitch.tv", "ttvnw.net"]},
-      {"id": "svc-audible", "name": "Audible", "kind": "service", "ruleType": "domain", "domains": ["audible.com"]},
-      {"id": "svc-kindle", "name": "Kindle", "kind": "service", "ruleType": "domain", "domains": ["kindle.com", "amazonkindle.com"]},
-      {"id": "svc-amazon-music", "name": "Amazon Music", "kind": "service", "ruleType": "domain", "domains": ["music.amazon.com"]},
-      {"id": "svc-alexa", "name": "Alexa", "kind": "service", "ruleType": "domain", "domains": ["alexa.amazon.com"]},
-      {"id": "svc-amazon-photos", "name": "Amazon Photos", "kind": "service", "ruleType": "domain", "domains": ["photos.amazon.com"]}
+      {
+        "id": "svc-amazon",
+        "name": "Amazon",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "amazon.com",
+          "amazonaws.com"
+        ]
+      },
+      {
+        "id": "svc-prime-video-platform",
+        "name": "Prime Video",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "primevideo.com",
+          "amazonvideo.com"
+        ]
+      },
+      {
+        "id": "svc-aws",
+        "name": "AWS",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "aws.amazon.com",
+          "amazonaws.com"
+        ]
+      },
+      {
+        "id": "svc-twitch-platform",
+        "name": "Twitch",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "twitch.tv",
+          "ttvnw.net"
+        ]
+      },
+      {
+        "id": "svc-audible",
+        "name": "Audible",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "audible.com"
+        ]
+      },
+      {
+        "id": "svc-kindle",
+        "name": "Kindle",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "kindle.com",
+          "amazonkindle.com"
+        ]
+      },
+      {
+        "id": "svc-amazon-music",
+        "name": "Amazon Music",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "music.amazon.com"
+        ]
+      },
+      {
+        "id": "svc-alexa",
+        "name": "Alexa",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "alexa.amazon.com"
+        ]
+      },
+      {
+        "id": "svc-amazon-photos",
+        "name": "Amazon Photos",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "photos.amazon.com"
+        ]
+      }
     ]
   },
   {
@@ -75,72 +460,82 @@
     "name": "Meta 平台",
     "kind": "platform",
     "children": [
-      {"id": "svc-facebook-platform", "name": "Facebook", "kind": "service", "ruleType": "domain", "domains": ["facebook.com", "fbcdn.net"]},
-      {"id": "svc-instagram-platform", "name": "Instagram", "kind": "service", "ruleType": "domain", "domains": ["instagram.com", "cdninstagram.com"]},
-      {"id": "svc-whatsapp-platform", "name": "WhatsApp", "kind": "service", "ruleType": "domain", "domains": ["whatsapp.com", "whatsapp.net"]},
-      {"id": "svc-messenger-platform", "name": "Messenger", "kind": "service", "ruleType": "domain", "domains": ["messenger.com"]},
-      {"id": "svc-threads", "name": "Threads", "kind": "service", "ruleType": "domain", "domains": ["threads.net"]},
-      {"id": "svc-meta-quest", "name": "Meta Quest", "kind": "service", "ruleType": "domain", "domains": ["meta.com", "oculus.com"]},
-      {"id": "svc-workplace", "name": "Workplace", "kind": "service", "ruleType": "domain", "domains": ["workplace.com"]},
-      {"id": "svc-meta-ai", "name": "Meta AI", "kind": "service", "ruleType": "domain", "domains": ["meta.ai"]}
-    ]
-  },
-  {
-    "id": "platform-bytedance",
-    "name": "字节跳动平台",
-    "kind": "platform",
-    "children": [
-      {"id": "svc-bd-tiktok", "name": "TikTok", "kind": "service", "ruleType": "domain", "domains": ["tiktok.com", "tiktokcdn.com"]},
-      {"id": "svc-bd-douyin", "name": "抖音", "kind": "service", "ruleType": "domain", "domains": ["douyin.com", "douyinvod.com"]},
-      {"id": "svc-bd-capcut", "name": "CapCut", "kind": "service", "ruleType": "domain", "domains": ["capcut.com"]},
-      {"id": "svc-bd-lark", "name": "飞书 / Lark", "kind": "service", "ruleType": "domain", "domains": ["larksuite.com", "feishu.cn"]},
-      {"id": "svc-bd-toutiao", "name": "今日头条", "kind": "service", "ruleType": "domain", "domains": ["toutiao.com"]},
-      {"id": "svc-bd-xigua", "name": "西瓜视频", "kind": "service", "ruleType": "domain", "domains": ["ixigua.com"]},
-      {"id": "svc-bd-pico", "name": "PICO", "kind": "service", "ruleType": "domain", "domains": ["picoxr.com"]}
-    ]
-  },
-  {
-    "id": "platform-tencent",
-    "name": "腾讯平台",
-    "kind": "platform",
-    "children": [
-      {"id": "svc-tc-wechat", "name": "微信", "kind": "service", "ruleType": "domain", "domains": ["wechat.com", "weixin.qq.com"]},
-      {"id": "svc-tc-qq", "name": "QQ", "kind": "service", "ruleType": "domain", "domains": ["qq.com", "qpic.cn"]},
-      {"id": "svc-tc-video", "name": "腾讯视频", "kind": "service", "ruleType": "domain", "domains": ["v.qq.com", "video.qq.com"]},
-      {"id": "svc-tc-music", "name": "QQ音乐", "kind": "service", "ruleType": "domain", "domains": ["y.qq.com"]},
-      {"id": "svc-tc-wegame", "name": "WeGame", "kind": "service", "ruleType": "domain", "domains": ["wegame.com"]},
-      {"id": "svc-tc-cloud", "name": "腾讯云", "kind": "service", "ruleType": "domain", "domains": ["cloud.tencent.com"]},
-      {"id": "svc-tc-wecom", "name": "企业微信", "kind": "service", "ruleType": "domain", "domains": ["wecom.qq.com"]},
-      {"id": "svc-tc-tim", "name": "TIM", "kind": "service", "ruleType": "domain", "domains": ["tim.qq.com"]},
-      {"id": "svc-tc-docs", "name": "腾讯文档", "kind": "service", "ruleType": "domain", "domains": ["docs.qq.com"]}
-    ]
-  },
-  {
-    "id": "platform-alibaba",
-    "name": "阿里巴巴平台",
-    "kind": "platform",
-    "children": [
-      {"id": "svc-ali-taobao", "name": "淘宝", "kind": "service", "ruleType": "domain", "domains": ["taobao.com", "tbcdn.cn"]},
-      {"id": "svc-ali-tmall", "name": "天猫", "kind": "service", "ruleType": "domain", "domains": ["tmall.com"]},
-      {"id": "svc-ali-express", "name": "AliExpress", "kind": "service", "ruleType": "domain", "domains": ["aliexpress.com"]},
-      {"id": "svc-ali-cloud", "name": "阿里云", "kind": "service", "ruleType": "domain", "domains": ["aliyun.com", "alicdn.com"]},
-      {"id": "svc-ali-dingtalk", "name": "钉钉", "kind": "service", "ruleType": "domain", "domains": ["dingtalk.com"]},
-      {"id": "svc-ali-youku", "name": "优酷", "kind": "service", "ruleType": "domain", "domains": ["youku.com"]},
-      {"id": "svc-ali-cainiao", "name": "菜鸟", "kind": "service", "ruleType": "domain", "domains": ["cainiao.com"]},
-      {"id": "svc-ali-eleme", "name": "饿了么", "kind": "service", "ruleType": "domain", "domains": ["ele.me"]}
-    ]
-  },
-  {
-    "id": "platform-baidu",
-    "name": "百度平台",
-    "kind": "platform",
-    "children": [
-      {"id": "svc-baidu-search", "name": "百度", "kind": "service", "ruleType": "domain", "domains": ["baidu.com"]},
-      {"id": "svc-baidu-pan", "name": "百度网盘", "kind": "service", "ruleType": "domain", "domains": ["pan.baidu.com"]},
-      {"id": "svc-baidu-map", "name": "百度地图", "kind": "service", "ruleType": "domain", "domains": ["map.baidu.com"]},
-      {"id": "svc-baidu-tieba", "name": "百度贴吧", "kind": "service", "ruleType": "domain", "domains": ["tieba.baidu.com"]},
-      {"id": "svc-baidu-wenku", "name": "百度文库", "kind": "service", "ruleType": "domain", "domains": ["wenku.baidu.com"]},
-      {"id": "svc-baidu-baike", "name": "百度百科", "kind": "service", "ruleType": "domain", "domains": ["baike.baidu.com"]}
+      {
+        "id": "svc-facebook-platform",
+        "name": "Facebook",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "facebook.com",
+          "fbcdn.net"
+        ]
+      },
+      {
+        "id": "svc-instagram-platform",
+        "name": "Instagram",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "instagram.com",
+          "cdninstagram.com"
+        ]
+      },
+      {
+        "id": "svc-whatsapp-platform",
+        "name": "WhatsApp",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "whatsapp.com",
+          "whatsapp.net"
+        ]
+      },
+      {
+        "id": "svc-messenger-platform",
+        "name": "Messenger",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "messenger.com"
+        ]
+      },
+      {
+        "id": "svc-threads",
+        "name": "Threads",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "threads.net"
+        ]
+      },
+      {
+        "id": "svc-meta-quest",
+        "name": "Meta Quest",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "meta.com",
+          "oculus.com"
+        ]
+      },
+      {
+        "id": "svc-workplace",
+        "name": "Workplace",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "workplace.com"
+        ]
+      },
+      {
+        "id": "svc-meta-ai",
+        "name": "Meta AI",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "meta.ai"
+        ]
+      }
     ]
   },
   {
@@ -148,28 +543,163 @@
     "name": "购物平台",
     "kind": "category",
     "children": [
-      {"id": "svc-shopping-amazon", "name": "Amazon Shopping", "kind": "service", "ruleType": "domain", "domains": ["amazon.com"]},
-      {"id": "svc-shopping-ebay", "name": "eBay", "kind": "service", "ruleType": "domain", "domains": ["ebay.com", "ebayimg.com"]},
-      {"id": "svc-shopping-aliexpress", "name": "AliExpress", "kind": "service", "ruleType": "domain", "domains": ["aliexpress.com", "alicdn.com"]},
-      {"id": "svc-shopping-taobao", "name": "淘宝", "kind": "service", "ruleType": "domain", "domains": ["taobao.com", "tbcdn.cn"]},
-      {"id": "svc-shopping-tmall", "name": "天猫", "kind": "service", "ruleType": "domain", "domains": ["tmall.com"]},
-      {"id": "svc-shopping-jd", "name": "京东", "kind": "service", "ruleType": "domain", "domains": ["jd.com", "360buyimg.com"]},
-      {"id": "svc-shopping-pdd", "name": "拼多多", "kind": "service", "ruleType": "domain", "domains": ["pinduoduo.com", "yangkeduo.com"]},
-      {"id": "svc-shopping-walmart", "name": "Walmart", "kind": "service", "ruleType": "domain", "domains": ["walmart.com"]},
-      {"id": "svc-shopping-bestbuy", "name": "Best Buy", "kind": "service", "ruleType": "domain", "domains": ["bestbuy.com"]},
-      {"id": "svc-shopping-costco", "name": "Costco", "kind": "service", "ruleType": "domain", "domains": ["costco.com"]},
-      {"id": "svc-shopping-temu", "name": "Temu", "kind": "service", "ruleType": "domain", "domains": ["temu.com"]},
-      {"id": "svc-shopping-shein", "name": "SHEIN", "kind": "service", "ruleType": "domain", "domains": ["shein.com"]},
-      {"id": "svc-shopping-tiktok-shop", "name": "TikTok Shop", "kind": "service", "ruleType": "domain", "domains": ["shop.tiktok.com", "tiktok.com"]},
-      {"id": "svc-shopping-douyin-shop", "name": "抖音商城", "kind": "service", "ruleType": "domain", "domains": ["douyin.com"]},
-      {"id": "svc-shopping-target", "name": "Target", "kind": "service", "ruleType": "domain", "domains": ["target.com"]},
-      {"id": "svc-shopping-newegg", "name": "Newegg", "kind": "service", "ruleType": "domain", "domains": ["newegg.com"]},
-      {"id": "svc-shopping-etsy", "name": "Etsy", "kind": "service", "ruleType": "domain", "domains": ["etsy.com"]},
-      {"id": "svc-shopping-rakuten", "name": "Rakuten", "kind": "service", "ruleType": "domain", "domains": ["rakuten.com"]},
-      {"id": "svc-shopping-shopee", "name": "Shopee", "kind": "service", "ruleType": "domain", "domains": ["shopee.com", "shopeemobile.com"]},
-      {"id": "svc-shopping-lazada", "name": "Lazada", "kind": "service", "ruleType": "domain", "domains": ["lazada.com"]},
-      {"id": "svc-shopping-mercado", "name": "Mercado Libre", "kind": "service", "ruleType": "domain", "domains": ["mercadolibre.com"]},
-      {"id": "svc-shopping-wayfair", "name": "Wayfair", "kind": "service", "ruleType": "domain", "domains": ["wayfair.com"]}
+      {
+        "id": "svc-shopping-amazon",
+        "name": "Amazon Shopping",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "amazon.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-ebay",
+        "name": "eBay",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ebay.com",
+          "ebayimg.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-aliexpress",
+        "name": "AliExpress",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "aliexpress.com",
+          "alicdn.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-walmart",
+        "name": "Walmart",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "walmart.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-bestbuy",
+        "name": "Best Buy",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "bestbuy.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-costco",
+        "name": "Costco",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "costco.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-temu",
+        "name": "Temu",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "temu.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-shein",
+        "name": "SHEIN",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "shein.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-tiktok-shop",
+        "name": "TikTok Shop",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "shop.tiktok.com",
+          "tiktok.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-target",
+        "name": "Target",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "target.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-newegg",
+        "name": "Newegg",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "newegg.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-etsy",
+        "name": "Etsy",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "etsy.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-rakuten",
+        "name": "Rakuten",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "rakuten.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-shopee",
+        "name": "Shopee",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "shopee.com",
+          "shopeemobile.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-lazada",
+        "name": "Lazada",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "lazada.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-mercado",
+        "name": "Mercado Libre",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "mercadolibre.com"
+        ]
+      },
+      {
+        "id": "svc-shopping-wayfair",
+        "name": "Wayfair",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "wayfair.com"
+        ]
+      }
     ]
   },
   {
@@ -177,21 +707,100 @@
     "name": "短视频平台",
     "kind": "category",
     "children": [
-      {"id": "svc-short-tiktok", "name": "TikTok", "kind": "service", "ruleType": "domain", "domains": ["tiktok.com", "tiktokcdn.com"]},
-      {"id": "svc-short-douyin", "name": "抖音", "kind": "service", "ruleType": "domain", "domains": ["douyin.com", "douyinvod.com"]},
-      {"id": "svc-short-kuaishou", "name": "快手", "kind": "service", "ruleType": "domain", "domains": ["kuaishou.com", "ks-cdn.com"]},
-      {"id": "svc-short-reels", "name": "Instagram Reels", "kind": "service", "ruleType": "domain", "domains": ["instagram.com", "cdninstagram.com"]},
-      {"id": "svc-short-yt-shorts", "name": "YouTube Shorts", "kind": "service", "ruleType": "domain", "domains": ["youtube.com", "googlevideo.com"]},
-      {"id": "svc-short-snap", "name": "Snapchat Spotlight", "kind": "service", "ruleType": "domain", "domains": ["snapchat.com", "sc-cdn.net"]},
-      {"id": "svc-short-likee", "name": "Likee", "kind": "service", "ruleType": "domain", "domains": ["likee.video"]},
-      {"id": "svc-short-bili", "name": "哔哩哔哩短视频", "kind": "service", "ruleType": "domain", "domains": ["bilibili.com", "bilivideo.com"]},
-      {"id": "svc-short-xiaohongshu", "name": "小红书", "kind": "service", "ruleType": "domain", "domains": ["xiaohongshu.com", "xhscdn.com"]},
-      {"id": "svc-short-weishi", "name": "微视", "kind": "service", "ruleType": "domain", "domains": ["weishi.com"]},
-      {"id": "svc-short-kwai", "name": "Kwai", "kind": "service", "ruleType": "domain", "domains": ["kwai.com"]},
-      {"id": "svc-short-triller", "name": "Triller", "kind": "service", "ruleType": "domain", "domains": ["triller.co"]},
-      {"id": "svc-short-vigo", "name": "Vigo Video", "kind": "service", "ruleType": "domain", "domains": ["vigovideo.net"]},
-      {"id": "svc-short-likeme", "name": "Lemon8", "kind": "service", "ruleType": "domain", "domains": ["lemon8-app.com"]},
-      {"id": "svc-short-vkclips", "name": "VK Clips", "kind": "service", "ruleType": "domain", "domains": ["vk.com"]}
+      {
+        "id": "svc-short-tiktok",
+        "name": "TikTok",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "tiktok.com",
+          "tiktokcdn.com"
+        ]
+      },
+      {
+        "id": "svc-short-reels",
+        "name": "Instagram Reels",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "instagram.com",
+          "cdninstagram.com"
+        ]
+      },
+      {
+        "id": "svc-short-yt-shorts",
+        "name": "YouTube Shorts",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "youtube.com",
+          "googlevideo.com"
+        ]
+      },
+      {
+        "id": "svc-short-snap",
+        "name": "Snapchat Spotlight",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "snapchat.com",
+          "sc-cdn.net"
+        ]
+      },
+      {
+        "id": "svc-short-likee",
+        "name": "Likee",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "likee.video"
+        ]
+      },
+      {
+        "id": "svc-short-kwai",
+        "name": "Kwai",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "kwai.com"
+        ]
+      },
+      {
+        "id": "svc-short-triller",
+        "name": "Triller",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "triller.co"
+        ]
+      },
+      {
+        "id": "svc-short-vigo",
+        "name": "Vigo Video",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "vigovideo.net"
+        ]
+      },
+      {
+        "id": "svc-short-likeme",
+        "name": "Lemon8",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "lemon8-app.com"
+        ]
+      },
+      {
+        "id": "svc-short-vkclips",
+        "name": "VK Clips",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "vk.com"
+        ]
+      }
     ]
   },
   {
@@ -199,26 +808,146 @@
     "name": "影视剧平台",
     "kind": "category",
     "children": [
-      {"id": "svc-netflix", "name": "Netflix", "kind": "service", "provider": "netflix", "ruleType": "domain", "domains": ["netflix.com", "nflxvideo.net"]},
-      {"id": "svc-disney", "name": "Disney+", "kind": "service", "provider": "disney", "ruleType": "domain", "domains": ["disneyplus.com", "bamgrid.com"]},
-      {"id": "svc-streaming-hbo", "name": "HBO Max", "kind": "service", "ruleType": "domain", "domains": ["max.com", "hbomax.com"]},
-      {"id": "svc-streaming-hulu", "name": "Hulu", "kind": "service", "ruleType": "domain", "domains": ["hulu.com"]},
-      {"id": "svc-streaming-prime", "name": "Prime Video", "kind": "service", "ruleType": "domain", "domains": ["primevideo.com"]},
-      {"id": "svc-streaming-appletv", "name": "Apple TV+", "kind": "service", "ruleType": "domain", "domains": ["tv.apple.com"]},
-      {"id": "svc-streaming-paramount", "name": "Paramount+", "kind": "service", "ruleType": "domain", "domains": ["paramountplus.com"]},
-      {"id": "svc-streaming-peacock", "name": "Peacock", "kind": "service", "ruleType": "domain", "domains": ["peacocktv.com"]},
-      {"id": "svc-streaming-ytv", "name": "YouTube TV", "kind": "service", "ruleType": "domain", "domains": ["tv.youtube.com"]},
-      {"id": "svc-streaming-bilibili", "name": "Bilibili", "kind": "service", "ruleType": "domain", "domains": ["bilibili.com", "bilivideo.com"]},
-      {"id": "svc-streaming-iqiyi", "name": "爱奇艺", "kind": "service", "ruleType": "domain", "domains": ["iqiyi.com", "iq.com"]},
-      {"id": "svc-streaming-tencentvideo", "name": "腾讯视频", "kind": "service", "ruleType": "domain", "domains": ["v.qq.com", "video.qq.com"]},
-      {"id": "svc-streaming-youku", "name": "优酷", "kind": "service", "ruleType": "domain", "domains": ["youku.com"]},
-      {"id": "svc-streaming-mgtv", "name": "芒果TV", "kind": "service", "ruleType": "domain", "domains": ["mgtv.com"]},
-      {"id": "svc-streaming-crunchyroll", "name": "Crunchyroll", "kind": "service", "ruleType": "domain", "domains": ["crunchyroll.com"]},
-      {"id": "svc-streaming-funimation", "name": "Funimation", "kind": "service", "ruleType": "domain", "domains": ["funimation.com"]},
-      {"id": "svc-streaming-mubi", "name": "MUBI", "kind": "service", "ruleType": "domain", "domains": ["mubi.com"]},
-      {"id": "svc-streaming-viki", "name": "Viki", "kind": "service", "ruleType": "domain", "domains": ["viki.com"]},
-      {"id": "svc-streaming-viu", "name": "Viu", "kind": "service", "ruleType": "domain", "domains": ["viu.com"]},
-      {"id": "svc-streaming-plex", "name": "Plex", "kind": "service", "ruleType": "domain", "domains": ["plex.tv"]}
+      {
+        "id": "svc-netflix",
+        "name": "Netflix",
+        "kind": "service",
+        "provider": "netflix",
+        "ruleType": "domain",
+        "domains": [
+          "netflix.com",
+          "nflxvideo.net"
+        ]
+      },
+      {
+        "id": "svc-disney",
+        "name": "Disney+",
+        "kind": "service",
+        "provider": "disney",
+        "ruleType": "domain",
+        "domains": [
+          "disneyplus.com",
+          "bamgrid.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-hbo",
+        "name": "HBO Max",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "max.com",
+          "hbomax.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-hulu",
+        "name": "Hulu",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "hulu.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-prime",
+        "name": "Prime Video",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "primevideo.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-appletv",
+        "name": "Apple TV+",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "tv.apple.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-paramount",
+        "name": "Paramount+",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "paramountplus.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-peacock",
+        "name": "Peacock",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "peacocktv.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-ytv",
+        "name": "YouTube TV",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "tv.youtube.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-crunchyroll",
+        "name": "Crunchyroll",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "crunchyroll.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-funimation",
+        "name": "Funimation",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "funimation.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-mubi",
+        "name": "MUBI",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "mubi.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-viki",
+        "name": "Viki",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "viki.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-viu",
+        "name": "Viu",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "viu.com"
+        ]
+      },
+      {
+        "id": "svc-streaming-plex",
+        "name": "Plex",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "plex.tv"
+        ]
+      }
     ]
   },
   {
@@ -226,22 +955,107 @@
     "name": "直播平台",
     "kind": "category",
     "children": [
-      {"id": "svc-live-twitch", "name": "Twitch", "kind": "service", "ruleType": "domain", "domains": ["twitch.tv", "ttvnw.net"]},
-      {"id": "svc-live-youtube", "name": "YouTube Live", "kind": "service", "ruleType": "domain", "domains": ["youtube.com", "ytimg.com"]},
-      {"id": "svc-live-tiktok", "name": "TikTok Live", "kind": "service", "ruleType": "domain", "domains": ["tiktok.com"]},
-      {"id": "svc-live-douyin", "name": "抖音直播", "kind": "service", "ruleType": "domain", "domains": ["douyin.com"]},
-      {"id": "svc-live-bili", "name": "哔哩哔哩直播", "kind": "service", "ruleType": "domain", "domains": ["live.bilibili.com"]},
-      {"id": "svc-live-douyu", "name": "斗鱼", "kind": "service", "ruleType": "domain", "domains": ["douyu.com"]},
-      {"id": "svc-live-huya", "name": "虎牙", "kind": "service", "ruleType": "domain", "domains": ["huya.com"]},
-      {"id": "svc-live-kick", "name": "Kick", "kind": "service", "ruleType": "domain", "domains": ["kick.com"]},
-      {"id": "svc-live-nimo", "name": "NimoTV", "kind": "service", "ruleType": "domain", "domains": ["nimo.tv"]},
-      {"id": "svc-live-cc", "name": "网易CC", "kind": "service", "ruleType": "domain", "domains": ["cc.163.com"]},
-      {"id": "svc-live-bigolive", "name": "BIGO LIVE", "kind": "service", "ruleType": "domain", "domains": ["bigo.tv"]},
-      {"id": "svc-live-afreeca", "name": "AfreecaTV", "kind": "service", "ruleType": "domain", "domains": ["afreecatv.com"]},
-      {"id": "svc-live-chzzk", "name": "CHZZK", "kind": "service", "ruleType": "domain", "domains": ["chzzk.naver.com"]},
-      {"id": "svc-live-soop", "name": "SOOP", "kind": "service", "ruleType": "domain", "domains": ["sooplive.co.kr"]},
-      {"id": "svc-live-rumble", "name": "Rumble Live", "kind": "service", "ruleType": "domain", "domains": ["rumble.com"]},
-      {"id": "svc-live-fb", "name": "Facebook Live", "kind": "service", "ruleType": "domain", "domains": ["facebook.com"]}
+      {
+        "id": "svc-live-twitch",
+        "name": "Twitch",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "twitch.tv",
+          "ttvnw.net"
+        ]
+      },
+      {
+        "id": "svc-live-youtube",
+        "name": "YouTube Live",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "youtube.com",
+          "ytimg.com"
+        ]
+      },
+      {
+        "id": "svc-live-tiktok",
+        "name": "TikTok Live",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "tiktok.com"
+        ]
+      },
+      {
+        "id": "svc-live-kick",
+        "name": "Kick",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "kick.com"
+        ]
+      },
+      {
+        "id": "svc-live-nimo",
+        "name": "NimoTV",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "nimo.tv"
+        ]
+      },
+      {
+        "id": "svc-live-bigolive",
+        "name": "BIGO LIVE",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "bigo.tv"
+        ]
+      },
+      {
+        "id": "svc-live-afreeca",
+        "name": "AfreecaTV",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "afreecatv.com"
+        ]
+      },
+      {
+        "id": "svc-live-chzzk",
+        "name": "CHZZK",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "chzzk.naver.com"
+        ]
+      },
+      {
+        "id": "svc-live-soop",
+        "name": "SOOP",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "sooplive.co.kr"
+        ]
+      },
+      {
+        "id": "svc-live-rumble",
+        "name": "Rumble Live",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "rumble.com"
+        ]
+      },
+      {
+        "id": "svc-live-fb",
+        "name": "Facebook Live",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "facebook.com"
+        ]
+      }
     ]
   },
   {
@@ -249,20 +1063,133 @@
     "name": "成人内容",
     "kind": "category",
     "children": [
-      {"id": "svc-adult-pornhub", "name": "Pornhub", "kind": "service", "ruleType": "domain", "domains": ["pornhub.com", "phncdn.com"]},
-      {"id": "svc-adult-xvideos", "name": "XVideos", "kind": "service", "ruleType": "domain", "domains": ["xvideos.com"]},
-      {"id": "svc-adult-xnxx", "name": "XNXX", "kind": "service", "ruleType": "domain", "domains": ["xnxx.com"]},
-      {"id": "svc-adult-xhamster", "name": "xHamster", "kind": "service", "ruleType": "domain", "domains": ["xhamster.com"]},
-      {"id": "svc-adult-spankbang", "name": "SpankBang", "kind": "service", "ruleType": "domain", "domains": ["spankbang.com"]},
-      {"id": "svc-adult-onlyfans", "name": "OnlyFans", "kind": "service", "ruleType": "domain", "domains": ["onlyfans.com"]},
-      {"id": "svc-adult-fansly", "name": "Fansly", "kind": "service", "ruleType": "domain", "domains": ["fansly.com"]},
-      {"id": "svc-adult-javdb", "name": "JavDB", "kind": "service", "ruleType": "domain", "domains": ["javdb.com"]},
-      {"id": "svc-adult-missav", "name": "MissAV", "kind": "service", "ruleType": "domain", "domains": ["missav.com"]},
-      {"id": "svc-adult-redtube", "name": "RedTube", "kind": "service", "ruleType": "domain", "domains": ["redtube.com"]},
-      {"id": "svc-adult-youporn", "name": "YouPorn", "kind": "service", "ruleType": "domain", "domains": ["youporn.com"]},
-      {"id": "svc-adult-hqporner", "name": "HQPorner", "kind": "service", "ruleType": "domain", "domains": ["hqporner.com"]},
-      {"id": "svc-adult-91", "name": "91Porn", "kind": "service", "ruleType": "domain", "domains": ["91porn.com"]},
-      {"id": "svc-adult-sextvx", "name": "SexTVx", "kind": "service", "ruleType": "domain", "domains": ["sextvx.com"]}
+      {
+        "id": "svc-adult-pornhub",
+        "name": "Pornhub",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "pornhub.com",
+          "phncdn.com"
+        ]
+      },
+      {
+        "id": "svc-adult-xvideos",
+        "name": "XVideos",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "xvideos.com"
+        ]
+      },
+      {
+        "id": "svc-adult-xnxx",
+        "name": "XNXX",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "xnxx.com"
+        ]
+      },
+      {
+        "id": "svc-adult-xhamster",
+        "name": "xHamster",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "xhamster.com"
+        ]
+      },
+      {
+        "id": "svc-adult-spankbang",
+        "name": "SpankBang",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "spankbang.com"
+        ]
+      },
+      {
+        "id": "svc-adult-onlyfans",
+        "name": "OnlyFans",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "onlyfans.com"
+        ]
+      },
+      {
+        "id": "svc-adult-fansly",
+        "name": "Fansly",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "fansly.com"
+        ]
+      },
+      {
+        "id": "svc-adult-javdb",
+        "name": "JavDB",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "javdb.com"
+        ]
+      },
+      {
+        "id": "svc-adult-missav",
+        "name": "MissAV",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "missav.com"
+        ]
+      },
+      {
+        "id": "svc-adult-redtube",
+        "name": "RedTube",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "redtube.com"
+        ]
+      },
+      {
+        "id": "svc-adult-youporn",
+        "name": "YouPorn",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "youporn.com"
+        ]
+      },
+      {
+        "id": "svc-adult-hqporner",
+        "name": "HQPorner",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "hqporner.com"
+        ]
+      },
+      {
+        "id": "svc-adult-91",
+        "name": "91Porn",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "91porn.com"
+        ]
+      },
+      {
+        "id": "svc-adult-sextvx",
+        "name": "SexTVx",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "sextvx.com"
+        ]
+      }
     ]
   },
   {
@@ -270,28 +1197,209 @@
     "name": "开发平台",
     "kind": "category",
     "children": [
-      {"id": "svc-dev-github", "name": "GitHub", "kind": "service", "ruleType": "domain", "domains": ["github.com", "githubusercontent.com"]},
-      {"id": "svc-dev-gitlab", "name": "GitLab", "kind": "service", "ruleType": "domain", "domains": ["gitlab.com"]},
-      {"id": "svc-dev-bitbucket", "name": "Bitbucket", "kind": "service", "ruleType": "domain", "domains": ["bitbucket.org"]},
-      {"id": "svc-dev-dockerhub", "name": "Docker Hub", "kind": "service", "ruleType": "domain", "domains": ["docker.com", "docker.io"]},
-      {"id": "svc-dev-npm", "name": "npm", "kind": "service", "ruleType": "domain", "domains": ["npmjs.com"]},
-      {"id": "svc-dev-pypi", "name": "PyPI", "kind": "service", "ruleType": "domain", "domains": ["pypi.org", "pythonhosted.org"]},
-      {"id": "svc-dev-golang", "name": "Golang", "kind": "service", "ruleType": "domain", "domains": ["golang.org", "go.dev"]},
-      {"id": "svc-dev-nuget", "name": "NuGet", "kind": "service", "ruleType": "domain", "domains": ["nuget.org"]},
-      {"id": "svc-dev-vscode", "name": "VSCode Marketplace", "kind": "service", "ruleType": "domain", "domains": ["marketplace.visualstudio.com"]},
-      {"id": "svc-dev-stackoverflow", "name": "Stack Overflow", "kind": "service", "ruleType": "domain", "domains": ["stackoverflow.com", "stackexchange.com"]},
-      {"id": "svc-dev-cloudflare", "name": "Cloudflare", "kind": "service", "ruleType": "domain", "domains": ["cloudflare.com"]},
-      {"id": "svc-dev-vercel", "name": "Vercel", "kind": "service", "ruleType": "domain", "domains": ["vercel.com"]},
-      {"id": "svc-dev-netlify", "name": "Netlify", "kind": "service", "ruleType": "domain", "domains": ["netlify.com"]},
-      {"id": "svc-dev-heroku", "name": "Heroku", "kind": "service", "ruleType": "domain", "domains": ["heroku.com"]},
-      {"id": "svc-dev-digitalocean", "name": "DigitalOcean", "kind": "service", "ruleType": "domain", "domains": ["digitalocean.com"]},
-      {"id": "svc-dev-jetbrains", "name": "JetBrains", "kind": "service", "ruleType": "domain", "domains": ["jetbrains.com"]},
-      {"id": "svc-dev-postman", "name": "Postman", "kind": "service", "ruleType": "domain", "domains": ["postman.com"]},
-      {"id": "svc-dev-hashicorp", "name": "HashiCorp", "kind": "service", "ruleType": "domain", "domains": ["hashicorp.com"]},
-      {"id": "svc-dev-terraform", "name": "Terraform Registry", "kind": "service", "ruleType": "domain", "domains": ["registry.terraform.io"]},
-      {"id": "svc-dev-kubernetes", "name": "Kubernetes", "kind": "service", "ruleType": "domain", "domains": ["kubernetes.io"]},
-      {"id": "svc-dev-openai-api", "name": "OpenAI API", "kind": "service", "ruleType": "domain", "domains": ["api.openai.com"]},
-      {"id": "svc-dev-anthropic-api", "name": "Anthropic API", "kind": "service", "ruleType": "domain", "domains": ["api.anthropic.com"]}
+      {
+        "id": "svc-dev-github",
+        "name": "GitHub",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "github.com",
+          "githubusercontent.com"
+        ]
+      },
+      {
+        "id": "svc-dev-gitlab",
+        "name": "GitLab",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "gitlab.com"
+        ]
+      },
+      {
+        "id": "svc-dev-bitbucket",
+        "name": "Bitbucket",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "bitbucket.org"
+        ]
+      },
+      {
+        "id": "svc-dev-dockerhub",
+        "name": "Docker Hub",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "docker.com",
+          "docker.io"
+        ]
+      },
+      {
+        "id": "svc-dev-npm",
+        "name": "npm",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "npmjs.com"
+        ]
+      },
+      {
+        "id": "svc-dev-pypi",
+        "name": "PyPI",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "pypi.org",
+          "pythonhosted.org"
+        ]
+      },
+      {
+        "id": "svc-dev-golang",
+        "name": "Golang",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "golang.org",
+          "go.dev"
+        ]
+      },
+      {
+        "id": "svc-dev-nuget",
+        "name": "NuGet",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "nuget.org"
+        ]
+      },
+      {
+        "id": "svc-dev-vscode",
+        "name": "VSCode Marketplace",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "marketplace.visualstudio.com"
+        ]
+      },
+      {
+        "id": "svc-dev-stackoverflow",
+        "name": "Stack Overflow",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "stackoverflow.com",
+          "stackexchange.com"
+        ]
+      },
+      {
+        "id": "svc-dev-cloudflare",
+        "name": "Cloudflare",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "cloudflare.com"
+        ]
+      },
+      {
+        "id": "svc-dev-vercel",
+        "name": "Vercel",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "vercel.com"
+        ]
+      },
+      {
+        "id": "svc-dev-netlify",
+        "name": "Netlify",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "netlify.com"
+        ]
+      },
+      {
+        "id": "svc-dev-heroku",
+        "name": "Heroku",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "heroku.com"
+        ]
+      },
+      {
+        "id": "svc-dev-digitalocean",
+        "name": "DigitalOcean",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "digitalocean.com"
+        ]
+      },
+      {
+        "id": "svc-dev-jetbrains",
+        "name": "JetBrains",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "jetbrains.com"
+        ]
+      },
+      {
+        "id": "svc-dev-postman",
+        "name": "Postman",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "postman.com"
+        ]
+      },
+      {
+        "id": "svc-dev-hashicorp",
+        "name": "HashiCorp",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "hashicorp.com"
+        ]
+      },
+      {
+        "id": "svc-dev-terraform",
+        "name": "Terraform Registry",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "registry.terraform.io"
+        ]
+      },
+      {
+        "id": "svc-dev-kubernetes",
+        "name": "Kubernetes",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "kubernetes.io"
+        ]
+      },
+      {
+        "id": "svc-dev-openai-api",
+        "name": "OpenAI API",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "api.openai.com"
+        ]
+      },
+      {
+        "id": "svc-dev-anthropic-api",
+        "name": "Anthropic API",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "api.anthropic.com"
+        ]
+      }
     ]
   },
   {
@@ -299,28 +1407,184 @@
     "name": "社交平台",
     "kind": "category",
     "children": [
-      {"id": "svc-telegram", "name": "Telegram", "kind": "service", "provider": "telegram", "ruleType": "ipcidr", "domains": ["telegram.org", "t.me"], "ipCidrs": ["91.108.0.0/16", "149.154.160.0/20"]},
-      {"id": "svc-social-whatsapp", "name": "WhatsApp", "kind": "service", "ruleType": "domain", "domains": ["whatsapp.com", "whatsapp.net"]},
-      {"id": "svc-social-facebook", "name": "Facebook", "kind": "service", "ruleType": "domain", "domains": ["facebook.com", "fbcdn.net"]},
-      {"id": "svc-social-messenger", "name": "Messenger", "kind": "service", "ruleType": "domain", "domains": ["messenger.com"]},
-      {"id": "svc-social-instagram", "name": "Instagram", "kind": "service", "ruleType": "domain", "domains": ["instagram.com", "cdninstagram.com"]},
-      {"id": "svc-x", "name": "X / Twitter", "kind": "service", "provider": "x", "ruleType": "domain", "domains": ["x.com", "twitter.com"]},
-      {"id": "svc-social-reddit", "name": "Reddit", "kind": "service", "ruleType": "domain", "domains": ["reddit.com", "redd.it"]},
-      {"id": "svc-social-discord", "name": "Discord", "kind": "service", "ruleType": "domain", "domains": ["discord.com", "discord.gg"]},
-      {"id": "svc-social-line", "name": "LINE", "kind": "service", "ruleType": "domain", "domains": ["line.me", "line-apps.com"]},
-      {"id": "svc-social-wechat", "name": "微信", "kind": "service", "ruleType": "domain", "domains": ["wechat.com", "weixin.qq.com"]},
-      {"id": "svc-social-qq", "name": "QQ", "kind": "service", "ruleType": "domain", "domains": ["qq.com", "qpic.cn"]},
-      {"id": "svc-social-snapchat", "name": "Snapchat", "kind": "service", "ruleType": "domain", "domains": ["snapchat.com", "sc-cdn.net"]},
-      {"id": "svc-social-linkedin", "name": "LinkedIn", "kind": "service", "ruleType": "domain", "domains": ["linkedin.com", "licdn.com"]},
-      {"id": "svc-social-pinterest", "name": "Pinterest", "kind": "service", "ruleType": "domain", "domains": ["pinterest.com"]},
-      {"id": "svc-social-threads", "name": "Threads", "kind": "service", "ruleType": "domain", "domains": ["threads.net"]},
-      {"id": "svc-social-weibo", "name": "微博", "kind": "service", "ruleType": "domain", "domains": ["weibo.com"]},
-      {"id": "svc-social-zhihu", "name": "知乎", "kind": "service", "ruleType": "domain", "domains": ["zhihu.com"]},
-      {"id": "svc-social-quora", "name": "Quora", "kind": "service", "ruleType": "domain", "domains": ["quora.com"]},
-      {"id": "svc-social-vk", "name": "VK", "kind": "service", "ruleType": "domain", "domains": ["vk.com"]},
-      {"id": "svc-social-kakao", "name": "KakaoTalk", "kind": "service", "ruleType": "domain", "domains": ["kakao.com"]},
-      {"id": "svc-social-signal", "name": "Signal", "kind": "service", "ruleType": "domain", "domains": ["signal.org"]},
-      {"id": "svc-social-skype", "name": "Skype", "kind": "service", "ruleType": "domain", "domains": ["skype.com"]}
+      {
+        "id": "svc-telegram",
+        "name": "Telegram",
+        "kind": "service",
+        "provider": "telegram",
+        "ruleType": "ipcidr",
+        "domains": [
+          "telegram.org",
+          "t.me"
+        ],
+        "ipCidrs": [
+          "91.108.0.0/16",
+          "149.154.160.0/20"
+        ]
+      },
+      {
+        "id": "svc-social-whatsapp",
+        "name": "WhatsApp",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "whatsapp.com",
+          "whatsapp.net"
+        ]
+      },
+      {
+        "id": "svc-social-facebook",
+        "name": "Facebook",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "facebook.com",
+          "fbcdn.net"
+        ]
+      },
+      {
+        "id": "svc-social-messenger",
+        "name": "Messenger",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "messenger.com"
+        ]
+      },
+      {
+        "id": "svc-social-instagram",
+        "name": "Instagram",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "instagram.com",
+          "cdninstagram.com"
+        ]
+      },
+      {
+        "id": "svc-x",
+        "name": "X / Twitter",
+        "kind": "service",
+        "provider": "x",
+        "ruleType": "domain",
+        "domains": [
+          "x.com",
+          "twitter.com"
+        ]
+      },
+      {
+        "id": "svc-social-reddit",
+        "name": "Reddit",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "reddit.com",
+          "redd.it"
+        ]
+      },
+      {
+        "id": "svc-social-discord",
+        "name": "Discord",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "discord.com",
+          "discord.gg"
+        ]
+      },
+      {
+        "id": "svc-social-line",
+        "name": "LINE",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "line.me",
+          "line-apps.com"
+        ]
+      },
+      {
+        "id": "svc-social-snapchat",
+        "name": "Snapchat",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "snapchat.com",
+          "sc-cdn.net"
+        ]
+      },
+      {
+        "id": "svc-social-linkedin",
+        "name": "LinkedIn",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "linkedin.com",
+          "licdn.com"
+        ]
+      },
+      {
+        "id": "svc-social-pinterest",
+        "name": "Pinterest",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "pinterest.com"
+        ]
+      },
+      {
+        "id": "svc-social-threads",
+        "name": "Threads",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "threads.net"
+        ]
+      },
+      {
+        "id": "svc-social-quora",
+        "name": "Quora",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "quora.com"
+        ]
+      },
+      {
+        "id": "svc-social-vk",
+        "name": "VK",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "vk.com"
+        ]
+      },
+      {
+        "id": "svc-social-kakao",
+        "name": "KakaoTalk",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "kakao.com"
+        ]
+      },
+      {
+        "id": "svc-social-signal",
+        "name": "Signal",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "signal.org"
+        ]
+      },
+      {
+        "id": "svc-social-skype",
+        "name": "Skype",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "skype.com"
+        ]
+      }
     ]
   },
   {
@@ -328,26 +1592,167 @@
     "name": "游戏平台",
     "kind": "category",
     "children": [
-      {"id": "svc-steam", "name": "Steam", "kind": "service", "provider": "steam", "ruleType": "domain", "domains": ["steampowered.com", "steamstatic.com"]},
-      {"id": "svc-epic", "name": "Epic Games", "kind": "service", "provider": "epic", "ruleType": "domain", "domains": ["epicgames.com"]},
-      {"id": "svc-game-riot", "name": "Riot Games", "kind": "service", "ruleType": "domain", "domains": ["riotgames.com", "leagueoflegends.com"]},
-      {"id": "svc-game-battlenet", "name": "Battle.net", "kind": "service", "ruleType": "domain", "domains": ["battle.net", "blizzard.com"]},
-      {"id": "svc-game-origin", "name": "EA App / Origin", "kind": "service", "ruleType": "domain", "domains": ["ea.com", "origin.com"]},
-      {"id": "svc-game-ubisoft", "name": "Ubisoft Connect", "kind": "service", "ruleType": "domain", "domains": ["ubisoft.com"]},
-      {"id": "svc-game-xbox", "name": "Xbox Live", "kind": "service", "ruleType": "domain", "domains": ["xboxlive.com", "xbox.com"]},
-      {"id": "svc-game-playstation", "name": "PlayStation Network", "kind": "service", "ruleType": "domain", "domains": ["playstation.com", "psn.com"]},
-      {"id": "svc-game-nintendo", "name": "Nintendo", "kind": "service", "ruleType": "domain", "domains": ["nintendo.com"]},
-      {"id": "svc-game-roblox", "name": "Roblox", "kind": "service", "ruleType": "domain", "domains": ["roblox.com"]},
-      {"id": "svc-game-garena", "name": "Garena", "kind": "service", "ruleType": "domain", "domains": ["garena.com"]},
-      {"id": "svc-game-taptap", "name": "TapTap", "kind": "service", "ruleType": "domain", "domains": ["taptap.cn"]},
-      {"id": "svc-game-mihoyo", "name": "米哈游", "kind": "service", "ruleType": "domain", "domains": ["mihoyo.com", "hoyoverse.com"]},
-      {"id": "svc-game-wegame", "name": "WeGame", "kind": "service", "ruleType": "domain", "domains": ["wegame.com"]},
-      {"id": "svc-game-valorant", "name": "Valorant", "kind": "service", "ruleType": "domain", "domains": ["playvalorant.com"]},
-      {"id": "svc-game-fortnite", "name": "Fortnite", "kind": "service", "ruleType": "domain", "domains": ["fortnite.com"]},
-      {"id": "svc-game-apex", "name": "Apex Legends", "kind": "service", "ruleType": "domain", "domains": ["apexlegends.com"]},
-      {"id": "svc-game-ps-cloud", "name": "PlayStation Plus Cloud", "kind": "service", "ruleType": "domain", "domains": ["playstation.com"]},
-      {"id": "svc-game-geforce-now", "name": "GeForce NOW", "kind": "service", "ruleType": "domain", "domains": ["geforcenow.com"]},
-      {"id": "svc-game-xcloud", "name": "Xbox Cloud Gaming", "kind": "service", "ruleType": "domain", "domains": ["xbox.com"]}
+      {
+        "id": "svc-steam",
+        "name": "Steam",
+        "kind": "service",
+        "provider": "steam",
+        "ruleType": "domain",
+        "domains": [
+          "steampowered.com",
+          "steamstatic.com"
+        ]
+      },
+      {
+        "id": "svc-epic",
+        "name": "Epic Games",
+        "kind": "service",
+        "provider": "epic",
+        "ruleType": "domain",
+        "domains": [
+          "epicgames.com"
+        ]
+      },
+      {
+        "id": "svc-game-riot",
+        "name": "Riot Games",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "riotgames.com",
+          "leagueoflegends.com"
+        ]
+      },
+      {
+        "id": "svc-game-battlenet",
+        "name": "Battle.net",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "battle.net",
+          "blizzard.com"
+        ]
+      },
+      {
+        "id": "svc-game-origin",
+        "name": "EA App / Origin",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ea.com",
+          "origin.com"
+        ]
+      },
+      {
+        "id": "svc-game-ubisoft",
+        "name": "Ubisoft Connect",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ubisoft.com"
+        ]
+      },
+      {
+        "id": "svc-game-xbox",
+        "name": "Xbox Live",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "xboxlive.com",
+          "xbox.com"
+        ]
+      },
+      {
+        "id": "svc-game-playstation",
+        "name": "PlayStation Network",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "playstation.com",
+          "psn.com"
+        ]
+      },
+      {
+        "id": "svc-game-nintendo",
+        "name": "Nintendo",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "nintendo.com"
+        ]
+      },
+      {
+        "id": "svc-game-roblox",
+        "name": "Roblox",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "roblox.com"
+        ]
+      },
+      {
+        "id": "svc-game-garena",
+        "name": "Garena",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "garena.com"
+        ]
+      },
+      {
+        "id": "svc-game-valorant",
+        "name": "Valorant",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "playvalorant.com"
+        ]
+      },
+      {
+        "id": "svc-game-fortnite",
+        "name": "Fortnite",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "fortnite.com"
+        ]
+      },
+      {
+        "id": "svc-game-apex",
+        "name": "Apex Legends",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "apexlegends.com"
+        ]
+      },
+      {
+        "id": "svc-game-ps-cloud",
+        "name": "PlayStation Plus Cloud",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "playstation.com"
+        ]
+      },
+      {
+        "id": "svc-game-geforce-now",
+        "name": "GeForce NOW",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "geforcenow.com"
+        ]
+      },
+      {
+        "id": "svc-game-xcloud",
+        "name": "Xbox Cloud Gaming",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "xbox.com"
+        ]
+      }
     ]
   },
   {
@@ -355,24 +1760,155 @@
     "name": "AI 服务",
     "kind": "category",
     "children": [
-      {"id": "svc-openai", "name": "OpenAI", "kind": "service", "provider": "openai", "ruleType": "domain", "domains": ["openai.com", "chatgpt.com"]},
-      {"id": "svc-claude", "name": "Claude", "kind": "service", "provider": "claude", "ruleType": "domain", "domains": ["anthropic.com", "claude.ai"]},
-      {"id": "svc-ai-gemini", "name": "Gemini", "kind": "service", "ruleType": "domain", "domains": ["gemini.google.com"]},
-      {"id": "svc-ai-copilot", "name": "Copilot", "kind": "service", "ruleType": "domain", "domains": ["copilot.microsoft.com", "githubcopilot.com"]},
-      {"id": "svc-ai-perplexity", "name": "Perplexity", "kind": "service", "ruleType": "domain", "domains": ["perplexity.ai"]},
-      {"id": "svc-ai-poe", "name": "Poe", "kind": "service", "ruleType": "domain", "domains": ["poe.com"]},
-      {"id": "svc-ai-grok", "name": "Grok", "kind": "service", "ruleType": "domain", "domains": ["x.ai"]},
-      {"id": "svc-ai-mistral", "name": "Mistral", "kind": "service", "ruleType": "domain", "domains": ["mistral.ai"]},
-      {"id": "svc-ai-midjourney", "name": "Midjourney", "kind": "service", "ruleType": "domain", "domains": ["midjourney.com"]},
-      {"id": "svc-ai-huggingface", "name": "Hugging Face", "kind": "service", "ruleType": "domain", "domains": ["huggingface.co"]},
-      {"id": "svc-ai-notion", "name": "Notion AI", "kind": "service", "ruleType": "domain", "domains": ["notion.so"]},
-      {"id": "svc-ai-grammarly", "name": "Grammarly", "kind": "service", "ruleType": "domain", "domains": ["grammarly.com"]},
-      {"id": "svc-ai-character", "name": "Character.AI", "kind": "service", "ruleType": "domain", "domains": ["character.ai"]},
-      {"id": "svc-ai-suno", "name": "Suno", "kind": "service", "ruleType": "domain", "domains": ["suno.com"]},
-      {"id": "svc-ai-runway", "name": "Runway", "kind": "service", "ruleType": "domain", "domains": ["runwayml.com"]},
-      {"id": "svc-ai-stability", "name": "Stability", "kind": "service", "ruleType": "domain", "domains": ["stability.ai"]},
-      {"id": "svc-ai-deepseek", "name": "DeepSeek", "kind": "service", "ruleType": "domain", "domains": ["deepseek.com"]},
-      {"id": "svc-ai-kimi", "name": "Kimi", "kind": "service", "ruleType": "domain", "domains": ["kimi.moonshot.cn"]}
+      {
+        "id": "svc-openai",
+        "name": "OpenAI",
+        "kind": "service",
+        "provider": "openai",
+        "ruleType": "domain",
+        "domains": [
+          "openai.com",
+          "chatgpt.com"
+        ]
+      },
+      {
+        "id": "svc-claude",
+        "name": "Claude",
+        "kind": "service",
+        "provider": "claude",
+        "ruleType": "domain",
+        "domains": [
+          "anthropic.com",
+          "claude.ai"
+        ]
+      },
+      {
+        "id": "svc-ai-gemini",
+        "name": "Gemini",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "gemini.google.com"
+        ]
+      },
+      {
+        "id": "svc-ai-copilot",
+        "name": "Copilot",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "copilot.microsoft.com",
+          "githubcopilot.com"
+        ]
+      },
+      {
+        "id": "svc-ai-perplexity",
+        "name": "Perplexity",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "perplexity.ai"
+        ]
+      },
+      {
+        "id": "svc-ai-poe",
+        "name": "Poe",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "poe.com"
+        ]
+      },
+      {
+        "id": "svc-ai-grok",
+        "name": "Grok",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "x.ai"
+        ]
+      },
+      {
+        "id": "svc-ai-mistral",
+        "name": "Mistral",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "mistral.ai"
+        ]
+      },
+      {
+        "id": "svc-ai-midjourney",
+        "name": "Midjourney",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "midjourney.com"
+        ]
+      },
+      {
+        "id": "svc-ai-huggingface",
+        "name": "Hugging Face",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "huggingface.co"
+        ]
+      },
+      {
+        "id": "svc-ai-notion",
+        "name": "Notion AI",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "notion.so"
+        ]
+      },
+      {
+        "id": "svc-ai-grammarly",
+        "name": "Grammarly",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "grammarly.com"
+        ]
+      },
+      {
+        "id": "svc-ai-character",
+        "name": "Character.AI",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "character.ai"
+        ]
+      },
+      {
+        "id": "svc-ai-suno",
+        "name": "Suno",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "suno.com"
+        ]
+      },
+      {
+        "id": "svc-ai-runway",
+        "name": "Runway",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "runwayml.com"
+        ]
+      },
+      {
+        "id": "svc-ai-stability",
+        "name": "Stability",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "stability.ai"
+        ]
+      }
     ]
   },
   {
@@ -380,24 +1916,151 @@
     "name": "支付与银行",
     "kind": "category",
     "children": [
-      {"id": "svc-pay-paypal", "name": "PayPal", "kind": "service", "ruleType": "domain", "domains": ["paypal.com", "paypalobjects.com"]},
-      {"id": "svc-pay-wise", "name": "Wise", "kind": "service", "ruleType": "domain", "domains": ["wise.com"]},
-      {"id": "svc-pay-stripe", "name": "Stripe", "kind": "service", "ruleType": "domain", "domains": ["stripe.com"]},
-      {"id": "svc-pay-visa", "name": "Visa", "kind": "service", "ruleType": "domain", "domains": ["visa.com"]},
-      {"id": "svc-pay-mastercard", "name": "Mastercard", "kind": "service", "ruleType": "domain", "domains": ["mastercard.com"]},
-      {"id": "svc-pay-amex", "name": "American Express", "kind": "service", "ruleType": "domain", "domains": ["americanexpress.com"]},
-      {"id": "svc-pay-revolut", "name": "Revolut", "kind": "service", "ruleType": "domain", "domains": ["revolut.com"]},
-      {"id": "svc-pay-alipay", "name": "支付宝", "kind": "service", "ruleType": "domain", "domains": ["alipay.com", "alipayobjects.com"]},
-      {"id": "svc-pay-wechat", "name": "微信支付", "kind": "service", "ruleType": "domain", "domains": ["pay.weixin.qq.com"]},
-      {"id": "svc-pay-apple", "name": "Apple Pay", "kind": "service", "ruleType": "domain", "domains": ["apple.com"]},
-      {"id": "svc-pay-google", "name": "Google Pay", "kind": "service", "ruleType": "domain", "domains": ["pay.google.com"]},
-      {"id": "svc-pay-samsung", "name": "Samsung Pay", "kind": "service", "ruleType": "domain", "domains": ["samsung.com"]},
-      {"id": "svc-pay-square", "name": "Square", "kind": "service", "ruleType": "domain", "domains": ["squareup.com"]},
-      {"id": "svc-pay-cashapp", "name": "Cash App", "kind": "service", "ruleType": "domain", "domains": ["cash.app"]},
-      {"id": "svc-pay-zelle", "name": "Zelle", "kind": "service", "ruleType": "domain", "domains": ["zellepay.com"]},
-      {"id": "svc-pay-chase", "name": "Chase", "kind": "service", "ruleType": "domain", "domains": ["chase.com"]},
-      {"id": "svc-pay-citi", "name": "Citi", "kind": "service", "ruleType": "domain", "domains": ["citi.com"]},
-      {"id": "svc-pay-bankofamerica", "name": "Bank of America", "kind": "service", "ruleType": "domain", "domains": ["bankofamerica.com"]}
+      {
+        "id": "svc-pay-paypal",
+        "name": "PayPal",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "paypal.com",
+          "paypalobjects.com"
+        ]
+      },
+      {
+        "id": "svc-pay-wise",
+        "name": "Wise",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "wise.com"
+        ]
+      },
+      {
+        "id": "svc-pay-stripe",
+        "name": "Stripe",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "stripe.com"
+        ]
+      },
+      {
+        "id": "svc-pay-visa",
+        "name": "Visa",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "visa.com"
+        ]
+      },
+      {
+        "id": "svc-pay-mastercard",
+        "name": "Mastercard",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "mastercard.com"
+        ]
+      },
+      {
+        "id": "svc-pay-amex",
+        "name": "American Express",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "americanexpress.com"
+        ]
+      },
+      {
+        "id": "svc-pay-revolut",
+        "name": "Revolut",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "revolut.com"
+        ]
+      },
+      {
+        "id": "svc-pay-apple",
+        "name": "Apple Pay",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "apple.com"
+        ]
+      },
+      {
+        "id": "svc-pay-google",
+        "name": "Google Pay",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "pay.google.com"
+        ]
+      },
+      {
+        "id": "svc-pay-samsung",
+        "name": "Samsung Pay",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "samsung.com"
+        ]
+      },
+      {
+        "id": "svc-pay-square",
+        "name": "Square",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "squareup.com"
+        ]
+      },
+      {
+        "id": "svc-pay-cashapp",
+        "name": "Cash App",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "cash.app"
+        ]
+      },
+      {
+        "id": "svc-pay-zelle",
+        "name": "Zelle",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "zellepay.com"
+        ]
+      },
+      {
+        "id": "svc-pay-chase",
+        "name": "Chase",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "chase.com"
+        ]
+      },
+      {
+        "id": "svc-pay-citi",
+        "name": "Citi",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "citi.com"
+        ]
+      },
+      {
+        "id": "svc-pay-bankofamerica",
+        "name": "Bank of America",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "bankofamerica.com"
+        ]
+      }
     ]
   },
   {
@@ -405,26 +2068,151 @@
     "name": "新闻媒体",
     "kind": "category",
     "children": [
-      {"id": "svc-news-bbc", "name": "BBC", "kind": "service", "ruleType": "domain", "domains": ["bbc.com", "bbc.co.uk"]},
-      {"id": "svc-news-cnn", "name": "CNN", "kind": "service", "ruleType": "domain", "domains": ["cnn.com"]},
-      {"id": "svc-news-reuters", "name": "Reuters", "kind": "service", "ruleType": "domain", "domains": ["reuters.com"]},
-      {"id": "svc-news-bloomberg", "name": "Bloomberg", "kind": "service", "ruleType": "domain", "domains": ["bloomberg.com"]},
-      {"id": "svc-news-nyt", "name": "NYTimes", "kind": "service", "ruleType": "domain", "domains": ["nytimes.com"]},
-      {"id": "svc-news-wsj", "name": "WSJ", "kind": "service", "ruleType": "domain", "domains": ["wsj.com"]},
-      {"id": "svc-news-ft", "name": "Financial Times", "kind": "service", "ruleType": "domain", "domains": ["ft.com"]},
-      {"id": "svc-news-guardian", "name": "The Guardian", "kind": "service", "ruleType": "domain", "domains": ["theguardian.com"]},
-      {"id": "svc-news-economist", "name": "The Economist", "kind": "service", "ruleType": "domain", "domains": ["economist.com"]},
-      {"id": "svc-news-fox", "name": "Fox News", "kind": "service", "ruleType": "domain", "domains": ["foxnews.com"]},
-      {"id": "svc-news-nbc", "name": "NBC News", "kind": "service", "ruleType": "domain", "domains": ["nbcnews.com"]},
-      {"id": "svc-news-cbs", "name": "CBS News", "kind": "service", "ruleType": "domain", "domains": ["cbsnews.com"]},
-      {"id": "svc-news-ap", "name": "AP News", "kind": "service", "ruleType": "domain", "domains": ["apnews.com"]},
-      {"id": "svc-news-axios", "name": "Axios", "kind": "service", "ruleType": "domain", "domains": ["axios.com"]},
-      {"id": "svc-news-politico", "name": "Politico", "kind": "service", "ruleType": "domain", "domains": ["politico.com"]},
-      {"id": "svc-news-cnbc", "name": "CNBC", "kind": "service", "ruleType": "domain", "domains": ["cnbc.com"]},
-      {"id": "svc-news-yicai", "name": "第一财经", "kind": "service", "ruleType": "domain", "domains": ["yicai.com"]},
-      {"id": "svc-news-caixin", "name": "财新", "kind": "service", "ruleType": "domain", "domains": ["caixin.com"]},
-      {"id": "svc-news-thepaper", "name": "澎湃新闻", "kind": "service", "ruleType": "domain", "domains": ["thepaper.cn"]},
-      {"id": "svc-news-jiemian", "name": "界面新闻", "kind": "service", "ruleType": "domain", "domains": ["jiemian.com"]}
+      {
+        "id": "svc-news-bbc",
+        "name": "BBC",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "bbc.com",
+          "bbc.co.uk"
+        ]
+      },
+      {
+        "id": "svc-news-cnn",
+        "name": "CNN",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "cnn.com"
+        ]
+      },
+      {
+        "id": "svc-news-reuters",
+        "name": "Reuters",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "reuters.com"
+        ]
+      },
+      {
+        "id": "svc-news-bloomberg",
+        "name": "Bloomberg",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "bloomberg.com"
+        ]
+      },
+      {
+        "id": "svc-news-nyt",
+        "name": "NYTimes",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "nytimes.com"
+        ]
+      },
+      {
+        "id": "svc-news-wsj",
+        "name": "WSJ",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "wsj.com"
+        ]
+      },
+      {
+        "id": "svc-news-ft",
+        "name": "Financial Times",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ft.com"
+        ]
+      },
+      {
+        "id": "svc-news-guardian",
+        "name": "The Guardian",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "theguardian.com"
+        ]
+      },
+      {
+        "id": "svc-news-economist",
+        "name": "The Economist",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "economist.com"
+        ]
+      },
+      {
+        "id": "svc-news-fox",
+        "name": "Fox News",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "foxnews.com"
+        ]
+      },
+      {
+        "id": "svc-news-nbc",
+        "name": "NBC News",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "nbcnews.com"
+        ]
+      },
+      {
+        "id": "svc-news-cbs",
+        "name": "CBS News",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "cbsnews.com"
+        ]
+      },
+      {
+        "id": "svc-news-ap",
+        "name": "AP News",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "apnews.com"
+        ]
+      },
+      {
+        "id": "svc-news-axios",
+        "name": "Axios",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "axios.com"
+        ]
+      },
+      {
+        "id": "svc-news-politico",
+        "name": "Politico",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "politico.com"
+        ]
+      },
+      {
+        "id": "svc-news-cnbc",
+        "name": "CNBC",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "cnbc.com"
+        ]
+      }
     ]
   },
   {
@@ -432,24 +2220,124 @@
     "name": "音乐平台",
     "kind": "category",
     "children": [
-      {"id": "svc-music-spotify", "name": "Spotify", "kind": "service", "ruleType": "domain", "domains": ["spotify.com", "scdn.co"]},
-      {"id": "svc-music-apple", "name": "Apple Music", "kind": "service", "ruleType": "domain", "domains": ["music.apple.com"]},
-      {"id": "svc-music-youtube", "name": "YouTube Music", "kind": "service", "ruleType": "domain", "domains": ["music.youtube.com"]},
-      {"id": "svc-music-amazon", "name": "Amazon Music", "kind": "service", "ruleType": "domain", "domains": ["music.amazon.com"]},
-      {"id": "svc-music-tidal", "name": "TIDAL", "kind": "service", "ruleType": "domain", "domains": ["tidal.com"]},
-      {"id": "svc-music-deezer", "name": "Deezer", "kind": "service", "ruleType": "domain", "domains": ["deezer.com"]},
-      {"id": "svc-music-soundcloud", "name": "SoundCloud", "kind": "service", "ruleType": "domain", "domains": ["soundcloud.com"]},
-      {"id": "svc-music-pandora", "name": "Pandora", "kind": "service", "ruleType": "domain", "domains": ["pandora.com"]},
-      {"id": "svc-music-netease", "name": "网易云音乐", "kind": "service", "ruleType": "domain", "domains": ["music.163.com"]},
-      {"id": "svc-music-qq", "name": "QQ音乐", "kind": "service", "ruleType": "domain", "domains": ["y.qq.com"]},
-      {"id": "svc-music-kugou", "name": "酷狗音乐", "kind": "service", "ruleType": "domain", "domains": ["kugou.com"]},
-      {"id": "svc-music-kuwo", "name": "酷我音乐", "kind": "service", "ruleType": "domain", "domains": ["kuwo.cn"]},
-      {"id": "svc-music-bilibili", "name": "哔哩哔哩音乐", "kind": "service", "ruleType": "domain", "domains": ["bilibili.com"]},
-      {"id": "svc-music-melon", "name": "Melon", "kind": "service", "ruleType": "domain", "domains": ["melon.com"]},
-      {"id": "svc-music-joox", "name": "JOOX", "kind": "service", "ruleType": "domain", "domains": ["joox.com"]},
-      {"id": "svc-music-line", "name": "LINE MUSIC", "kind": "service", "ruleType": "domain", "domains": ["music.line.me"]},
-      {"id": "svc-music-yandex", "name": "Yandex Music", "kind": "service", "ruleType": "domain", "domains": ["music.yandex.ru"]},
-      {"id": "svc-music-napster", "name": "Napster", "kind": "service", "ruleType": "domain", "domains": ["napster.com"]}
+      {
+        "id": "svc-music-spotify",
+        "name": "Spotify",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "spotify.com",
+          "scdn.co"
+        ]
+      },
+      {
+        "id": "svc-music-apple",
+        "name": "Apple Music",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "music.apple.com"
+        ]
+      },
+      {
+        "id": "svc-music-youtube",
+        "name": "YouTube Music",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "music.youtube.com"
+        ]
+      },
+      {
+        "id": "svc-music-amazon",
+        "name": "Amazon Music",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "music.amazon.com"
+        ]
+      },
+      {
+        "id": "svc-music-tidal",
+        "name": "TIDAL",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "tidal.com"
+        ]
+      },
+      {
+        "id": "svc-music-deezer",
+        "name": "Deezer",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "deezer.com"
+        ]
+      },
+      {
+        "id": "svc-music-soundcloud",
+        "name": "SoundCloud",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "soundcloud.com"
+        ]
+      },
+      {
+        "id": "svc-music-pandora",
+        "name": "Pandora",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "pandora.com"
+        ]
+      },
+      {
+        "id": "svc-music-melon",
+        "name": "Melon",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "melon.com"
+        ]
+      },
+      {
+        "id": "svc-music-joox",
+        "name": "JOOX",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "joox.com"
+        ]
+      },
+      {
+        "id": "svc-music-line",
+        "name": "LINE MUSIC",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "music.line.me"
+        ]
+      },
+      {
+        "id": "svc-music-yandex",
+        "name": "Yandex Music",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "music.yandex.ru"
+        ]
+      },
+      {
+        "id": "svc-music-napster",
+        "name": "Napster",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "napster.com"
+        ]
+      }
     ]
   },
   {
@@ -457,22 +2345,78 @@
     "name": "电商物流",
     "kind": "category",
     "children": [
-      {"id": "svc-logistics-cainiao", "name": "菜鸟", "kind": "service", "ruleType": "domain", "domains": ["cainiao.com"]},
-      {"id": "svc-logistics-jd", "name": "京东物流", "kind": "service", "ruleType": "domain", "domains": ["jdwl.com"]},
-      {"id": "svc-logistics-sf", "name": "顺丰", "kind": "service", "ruleType": "domain", "domains": ["sf-express.com"]},
-      {"id": "svc-logistics-yto", "name": "圆通", "kind": "service", "ruleType": "domain", "domains": ["yto.net.cn"]},
-      {"id": "svc-logistics-zto", "name": "中通", "kind": "service", "ruleType": "domain", "domains": ["zto.com"]},
-      {"id": "svc-logistics-yunda", "name": "韵达", "kind": "service", "ruleType": "domain", "domains": ["yundaex.com"]},
-      {"id": "svc-logistics-sto", "name": "申通", "kind": "service", "ruleType": "domain", "domains": ["sto.cn"]},
-      {"id": "svc-logistics-fedex", "name": "FedEx", "kind": "service", "ruleType": "domain", "domains": ["fedex.com"]},
-      {"id": "svc-logistics-ups", "name": "UPS", "kind": "service", "ruleType": "domain", "domains": ["ups.com"]},
-      {"id": "svc-logistics-dhl", "name": "DHL", "kind": "service", "ruleType": "domain", "domains": ["dhl.com"]},
-      {"id": "svc-logistics-usps", "name": "USPS", "kind": "service", "ruleType": "domain", "domains": ["usps.com"]},
-      {"id": "svc-logistics-rsf", "name": "Royal Mail", "kind": "service", "ruleType": "domain", "domains": ["royalmail.com"]},
-      {"id": "svc-logistics-japanpost", "name": "Japan Post", "kind": "service", "ruleType": "domain", "domains": ["japanpost.jp"]},
-      {"id": "svc-logistics-singpost", "name": "SingPost", "kind": "service", "ruleType": "domain", "domains": ["singpost.com"]},
-      {"id": "svc-logistics-4px", "name": "4PX", "kind": "service", "ruleType": "domain", "domains": ["4px.com"]},
-      {"id": "svc-logistics-yanwen", "name": "燕文物流", "kind": "service", "ruleType": "domain", "domains": ["yanwen.com"]}
+      {
+        "id": "svc-logistics-fedex",
+        "name": "FedEx",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "fedex.com"
+        ]
+      },
+      {
+        "id": "svc-logistics-ups",
+        "name": "UPS",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ups.com"
+        ]
+      },
+      {
+        "id": "svc-logistics-dhl",
+        "name": "DHL",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "dhl.com"
+        ]
+      },
+      {
+        "id": "svc-logistics-usps",
+        "name": "USPS",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "usps.com"
+        ]
+      },
+      {
+        "id": "svc-logistics-rsf",
+        "name": "Royal Mail",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "royalmail.com"
+        ]
+      },
+      {
+        "id": "svc-logistics-japanpost",
+        "name": "Japan Post",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "japanpost.jp"
+        ]
+      },
+      {
+        "id": "svc-logistics-singpost",
+        "name": "SingPost",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "singpost.com"
+        ]
+      },
+      {
+        "id": "svc-logistics-4px",
+        "name": "4PX",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "4px.com"
+        ]
+      }
     ]
   },
   {
@@ -480,24 +2424,123 @@
     "name": "教育平台",
     "kind": "category",
     "children": [
-      {"id": "svc-edu-coursera", "name": "Coursera", "kind": "service", "ruleType": "domain", "domains": ["coursera.org"]},
-      {"id": "svc-edu-edx", "name": "edX", "kind": "service", "ruleType": "domain", "domains": ["edx.org"]},
-      {"id": "svc-edu-udemy", "name": "Udemy", "kind": "service", "ruleType": "domain", "domains": ["udemy.com"]},
-      {"id": "svc-edu-khan", "name": "Khan Academy", "kind": "service", "ruleType": "domain", "domains": ["khanacademy.org"]},
-      {"id": "svc-edu-pluralsight", "name": "Pluralsight", "kind": "service", "ruleType": "domain", "domains": ["pluralsight.com"]},
-      {"id": "svc-edu-udacity", "name": "Udacity", "kind": "service", "ruleType": "domain", "domains": ["udacity.com"]},
-      {"id": "svc-edu-linkedin", "name": "LinkedIn Learning", "kind": "service", "ruleType": "domain", "domains": ["linkedin.com"]},
-      {"id": "svc-edu-masterclass", "name": "MasterClass", "kind": "service", "ruleType": "domain", "domains": ["masterclass.com"]},
-      {"id": "svc-edu-domestika", "name": "Domestika", "kind": "service", "ruleType": "domain", "domains": ["domestika.org"]},
-      {"id": "svc-edu-codecademy", "name": "Codecademy", "kind": "service", "ruleType": "domain", "domains": ["codecademy.com"]},
-      {"id": "svc-edu-leetcode", "name": "LeetCode", "kind": "service", "ruleType": "domain", "domains": ["leetcode.com"]},
-      {"id": "svc-edu-geeksforgeeks", "name": "GeeksforGeeks", "kind": "service", "ruleType": "domain", "domains": ["geeksforgeeks.org"]},
-      {"id": "svc-edu-zhihuishu", "name": "智慧树", "kind": "service", "ruleType": "domain", "domains": ["zhihuishu.com"]},
-      {"id": "svc-edu-mooc", "name": "中国大学MOOC", "kind": "service", "ruleType": "domain", "domains": ["icourse163.org"]},
-      {"id": "svc-edu-xuetangx", "name": "学堂在线", "kind": "service", "ruleType": "domain", "domains": ["xuetangx.com"]},
-      {"id": "svc-edu-boyu", "name": "博雅慕课", "kind": "service", "ruleType": "domain", "domains": ["cnmooc.org"]},
-      {"id": "svc-edu-runoob", "name": "菜鸟教程", "kind": "service", "ruleType": "domain", "domains": ["runoob.com"]},
-      {"id": "svc-edu-w3school", "name": "W3School", "kind": "service", "ruleType": "domain", "domains": ["w3schools.com"]}
+      {
+        "id": "svc-edu-coursera",
+        "name": "Coursera",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "coursera.org"
+        ]
+      },
+      {
+        "id": "svc-edu-edx",
+        "name": "edX",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "edx.org"
+        ]
+      },
+      {
+        "id": "svc-edu-udemy",
+        "name": "Udemy",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "udemy.com"
+        ]
+      },
+      {
+        "id": "svc-edu-khan",
+        "name": "Khan Academy",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "khanacademy.org"
+        ]
+      },
+      {
+        "id": "svc-edu-pluralsight",
+        "name": "Pluralsight",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "pluralsight.com"
+        ]
+      },
+      {
+        "id": "svc-edu-udacity",
+        "name": "Udacity",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "udacity.com"
+        ]
+      },
+      {
+        "id": "svc-edu-linkedin",
+        "name": "LinkedIn Learning",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "linkedin.com"
+        ]
+      },
+      {
+        "id": "svc-edu-masterclass",
+        "name": "MasterClass",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "masterclass.com"
+        ]
+      },
+      {
+        "id": "svc-edu-domestika",
+        "name": "Domestika",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "domestika.org"
+        ]
+      },
+      {
+        "id": "svc-edu-codecademy",
+        "name": "Codecademy",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "codecademy.com"
+        ]
+      },
+      {
+        "id": "svc-edu-leetcode",
+        "name": "LeetCode",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "leetcode.com"
+        ]
+      },
+      {
+        "id": "svc-edu-geeksforgeeks",
+        "name": "GeeksforGeeks",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "geeksforgeeks.org"
+        ]
+      },
+      {
+        "id": "svc-edu-w3school",
+        "name": "W3School",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "w3schools.com"
+        ]
+      }
     ]
   },
   {
@@ -505,24 +2548,133 @@
     "name": "云盘与协作",
     "kind": "category",
     "children": [
-      {"id": "svc-cloud-gdrive", "name": "Google Drive", "kind": "service", "ruleType": "domain", "domains": ["drive.google.com"]},
-      {"id": "svc-cloud-dropbox", "name": "Dropbox", "kind": "service", "ruleType": "domain", "domains": ["dropbox.com"]},
-      {"id": "svc-cloud-onedrive", "name": "OneDrive", "kind": "service", "ruleType": "domain", "domains": ["onedrive.live.com"]},
-      {"id": "svc-cloud-icloud", "name": "iCloud Drive", "kind": "service", "ruleType": "domain", "domains": ["icloud.com"]},
-      {"id": "svc-cloud-box", "name": "Box", "kind": "service", "ruleType": "domain", "domains": ["box.com"]},
-      {"id": "svc-cloud-mega", "name": "MEGA", "kind": "service", "ruleType": "domain", "domains": ["mega.nz"]},
-      {"id": "svc-cloud-pcloud", "name": "pCloud", "kind": "service", "ruleType": "domain", "domains": ["pcloud.com"]},
-      {"id": "svc-cloud-sync", "name": "Syncthing", "kind": "service", "ruleType": "domain", "domains": ["syncthing.net"]},
-      {"id": "svc-cloud-baidu", "name": "百度网盘", "kind": "service", "ruleType": "domain", "domains": ["pan.baidu.com"]},
-      {"id": "svc-cloud-aliyun", "name": "阿里云盘", "kind": "service", "ruleType": "domain", "domains": ["aliyundrive.com"]},
-      {"id": "svc-cloud-quark", "name": "夸克网盘", "kind": "service", "ruleType": "domain", "domains": ["quark.cn"]},
-      {"id": "svc-cloud-123", "name": "123 云盘", "kind": "service", "ruleType": "domain", "domains": ["123pan.com"]},
-      {"id": "svc-cloud-terabox", "name": "TeraBox", "kind": "service", "ruleType": "domain", "domains": ["terabox.com"]},
-      {"id": "svc-cloud-notion", "name": "Notion", "kind": "service", "ruleType": "domain", "domains": ["notion.so"]},
-      {"id": "svc-cloud-slack", "name": "Slack", "kind": "service", "ruleType": "domain", "domains": ["slack.com"]},
-      {"id": "svc-cloud-zoom", "name": "Zoom", "kind": "service", "ruleType": "domain", "domains": ["zoom.us"]},
-      {"id": "svc-cloud-lark", "name": "飞书", "kind": "service", "ruleType": "domain", "domains": ["larksuite.com", "feishu.cn"]},
-      {"id": "svc-cloud-teams", "name": "Teams", "kind": "service", "ruleType": "domain", "domains": ["teams.microsoft.com"]}
+      {
+        "id": "svc-cloud-gdrive",
+        "name": "Google Drive",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "drive.google.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-dropbox",
+        "name": "Dropbox",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "dropbox.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-onedrive",
+        "name": "OneDrive",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "onedrive.live.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-icloud",
+        "name": "iCloud Drive",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "icloud.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-box",
+        "name": "Box",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "box.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-mega",
+        "name": "MEGA",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "mega.nz"
+        ]
+      },
+      {
+        "id": "svc-cloud-pcloud",
+        "name": "pCloud",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "pcloud.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-sync",
+        "name": "Syncthing",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "syncthing.net"
+        ]
+      },
+      {
+        "id": "svc-cloud-terabox",
+        "name": "TeraBox",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "terabox.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-notion",
+        "name": "Notion",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "notion.so"
+        ]
+      },
+      {
+        "id": "svc-cloud-slack",
+        "name": "Slack",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "slack.com"
+        ]
+      },
+      {
+        "id": "svc-cloud-zoom",
+        "name": "Zoom",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "zoom.us"
+        ]
+      },
+      {
+        "id": "svc-cloud-lark",
+        "name": "飞书",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "larksuite.com",
+          "feishu.cn"
+        ]
+      },
+      {
+        "id": "svc-cloud-teams",
+        "name": "Teams",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "teams.microsoft.com"
+        ]
+      }
     ]
   }
 ]

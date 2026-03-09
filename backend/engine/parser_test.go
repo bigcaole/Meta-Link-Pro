@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"encoding/base64"
 	"strings"
 	"testing"
 
@@ -123,5 +124,30 @@ proxies:
 	}
 	if report.Nodes[1].Server != "second.example.com" {
 		t.Fatalf("override not applied: %+v", report.Nodes[1])
+	}
+}
+
+func TestShouldFetchSubscriptionForPlainHTTPLink(t *testing.T) {
+	if !shouldFetchSubscription("https://example.com/plain-sub", 1, false) {
+		t.Fatal("expected plain single http link to be treated as subscription")
+	}
+	if shouldFetchSubscription("https://example.com/readme", 2, false) {
+		t.Fatal("expected multi-link plain http to not be forced as subscription")
+	}
+}
+
+func TestParseInputBase64PlainSubscriptionBody(t *testing.T) {
+	raw := strings.Join([]string{
+		"vless://123e4567-e89b-12d3-a456-426614174000@example.com:443?type=tcp#VLESS-1",
+		"trojan://passwd@example.org:443#TR-1",
+	}, "\n")
+	encoded := base64.StdEncoding.EncodeToString([]byte(raw))
+
+	report := ParseInput(encoded)
+	if len(report.Errors) != 0 {
+		t.Fatalf("unexpected errors: %+v", report.Errors)
+	}
+	if len(report.Nodes) != 2 {
+		t.Fatalf("expected 2 nodes, got %d", len(report.Nodes))
 	}
 }

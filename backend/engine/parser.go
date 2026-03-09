@@ -349,6 +349,10 @@ func parseSubscription(subscriptionURL string) ([]models.ProxyNode, []models.Par
 func parseContentBlock(content string, allowSubscriptionFetch bool) ([]models.ProxyNode, []models.ParseIssue) {
 	nodes := make([]models.ProxyNode, 0)
 	errs := make([]models.ParseIssue, 0)
+	content = strings.TrimSpace(content)
+	if content == "" {
+		return nodes, errs
+	}
 
 	if likelyClashYAML(content) {
 		yamlNodes, yamlErrs := parseClashYAMLProxies(content)
@@ -360,11 +364,27 @@ func parseContentBlock(content string, allowSubscriptionFetch bool) ([]models.Pr
 	}
 
 	links := extractCandidateLinks(content)
+	if len(links) == 0 {
+		if decoded, err := tryDecodeBase64(content); err == nil {
+			decoded = strings.TrimSpace(decoded)
+			if decoded != "" && decoded != content {
+				decodedNodes, decodedErrs := parseContentBlock(decoded, false)
+				nodes = append(nodes, decodedNodes...)
+				errs = append(errs, decodedErrs...)
+			}
+		}
+		return dedupeNodes(nodes), errs
+	}
+
+	hasProxyScheme := containsProxySchemeMarker(content)
 	for _, link := range links {
-		if allowSubscriptionFetch && isSubscriptionLink(link) {
+		if allowSubscriptionFetch && shouldFetchSubscription(link, len(links), hasProxyScheme) {
 			subNodes, subErrs := parseSubscription(link)
 			nodes = append(nodes, subNodes...)
 			errs = append(errs, subErrs...)
+			continue
+		}
+		if isHTTPURL(link) {
 			continue
 		}
 
@@ -710,13 +730,40 @@ func cleanExtractedLink(link string) string {
 
 func isSubscriptionLink(link string) bool {
 	lower := strings.ToLower(link)
-	if !strings.HasPrefix(lower, "http://") && !strings.HasPrefix(lower, "https://") {
+	if !isHTTPURL(link) {
 		return false
 	}
 	if strings.Contains(lower, ".yaml") || strings.Contains(lower, ".yml") || strings.Contains(lower, "clash") {
 		return true
 	}
 	return strings.Contains(lower, "subscribe") || strings.Contains(lower, "subscription") || strings.Contains(lower, "sub=") || strings.Contains(lower, "token=")
+}
+
+func isHTTPURL(link string) bool {
+	lower := strings.ToLower(strings.TrimSpace(link))
+	return strings.HasPrefix(lower, "http://") || strings.HasPrefix(lower, "https://")
+}
+
+func containsProxySchemeMarker(content string) bool {
+	lower := strings.ToLower(content)
+	return strings.Contains(lower, "vless://") ||
+		strings.Contains(lower, "vmess://") ||
+		strings.Contains(lower, "trojan://") ||
+		strings.Contains(lower, "ss://") ||
+		strings.Contains(lower, "tuic://") ||
+		strings.Contains(lower, "hysteria2://") ||
+		strings.Contains(lower, "hy2://")
+}
+
+func shouldFetchSubscription(link string, totalLinks int, hasProxyScheme bool) bool {
+	if !isHTTPURL(link) {
+		return false
+	}
+	if isSubscriptionLink(link) {
+		return true
+	}
+	// Plain-text subscription links often have no "subscribe/token" keywords.
+	return totalLinks == 1 && !hasProxyScheme
 }
 
 func tryDecodeBase64(data string) (string, error) {

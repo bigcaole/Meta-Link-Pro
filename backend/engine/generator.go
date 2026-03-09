@@ -183,9 +183,8 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	serviceMap := services.FlattenServices(serviceTree)
 
 	providerNames := map[string]struct{}{
-		"private":         {},
-		"cn":              {},
-		"geolocation-!cn": {},
+		"private": {},
+		"cn":      {},
 	}
 
 	providerRules := make([]string, 0)
@@ -304,13 +303,9 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 
 	builder.WriteString("  - RULE-SET,private,DIRECT\n")
 	builder.WriteString("  - RULE-SET,cn,DIRECT\n")
-	if req.Mode == models.ModeWhitelist {
-		builder.WriteString("  - RULE-SET,geolocation-!cn,DIRECT\n")
-		builder.WriteString("  - MATCH,DIRECT\n")
-	} else {
-		builder.WriteString(fmt.Sprintf("  - RULE-SET,geolocation-!cn,%s\n", proxyGroup))
-		builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", proxyGroup))
-	}
+	builder.WriteString("  - GEOSITE,CN,DIRECT\n")
+	builder.WriteString("  - GEOIP,CN,DIRECT,no-resolve\n")
+	builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", proxyGroup))
 
 	return builder.String(), nil
 }

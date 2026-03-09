@@ -40,9 +40,11 @@ func TestGenerateMetaYAMLRuleOrder(t *testing.T) {
 	idxCIDR := strings.Index(yaml, "IP-CIDR,192.168.1.100/32,DIRECT,no-resolve")
 	idxSvc := strings.Index(yaml, "RULE-SET,openai,Proxy_Group")
 	idxGlobal := strings.Index(yaml, "RULE-SET,private,DIRECT")
-	idxMatch := strings.Index(yaml, "MATCH,DIRECT")
+	idxGeoSiteCN := strings.Index(yaml, "GEOSITE,CN,DIRECT")
+	idxCN := strings.Index(yaml, "GEOIP,CN,DIRECT,no-resolve")
+	idxMatch := strings.Index(yaml, "MATCH,Proxy_Group")
 
-	if !(idxCIDR < idxSvc && idxSvc < idxGlobal && idxGlobal < idxMatch) {
+	if !(idxCIDR < idxSvc && idxSvc < idxGlobal && idxGlobal < idxGeoSiteCN && idxGeoSiteCN < idxCN && idxCN < idxMatch) {
 		t.Fatalf("rule order invalid:\n%s", yaml)
 	}
 }
