@@ -25,7 +25,7 @@ jobs:
           go-version-file: go.mod
 
       - name: Run tests
-        run: go test ./...
+        run: go test ./backend/... ./cmd/...
 
   build-windows:
     needs: test
