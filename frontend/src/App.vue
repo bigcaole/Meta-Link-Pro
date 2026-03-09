@@ -4,6 +4,7 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import type {
   GenerateMetaYAMLRequest,
+  ParseMode,
   ParseReport,
   ProxyNode,
   ServiceSelection,
@@ -45,6 +46,8 @@ const chainRoutes = ref<ChainRoute[]>([])
 
 const proxyGroupName = ref('Proxy_Group')
 const directCIDRText = ref('')
+const parseMode = ref<ParseMode>('blacklist')
+const blockQuic = ref(false)
 
 const selectionState = reactive<Record<string, { enabled: boolean; policy: string }>>({})
 const groupSelectionState = reactive<Record<string, { enabled: boolean; policy: string }>>({})
@@ -52,6 +55,7 @@ const groupSelectionState = reactive<Record<string, { enabled: boolean; policy: 
 const yamlPreview = ref('')
 const isUpdateReady = computed(() => updateStatus.value.completed)
 const updateFailureCount = computed(() => updateStatus.value.steps.filter((item) => item.status === 'failed').length)
+const fallbackMatch = computed(() => parseMode.value === 'whitelist' ? 'DIRECT' : (proxyGroupName.value || 'Proxy_Group'))
 
 const guideMarkdown = `# Meta-Link Pro 使用指南
 
@@ -67,8 +71,9 @@ const guideMarkdown = `# Meta-Link Pro 使用指南
 - 在“平台/类别”树中为每个服务指定策略：\`DIRECT\`、\`Proxy_Group\` 或具体节点。
 - 支持平台/分类级一键策略：例如可一键让整个 Google 平台都走同一策略。
 - 分流树标题会显示各分类的服务数量，便于快速定位大类。
+- 模式开关：白名单模式仅代理勾选服务（兜底 \`MATCH,DIRECT\`）；黑名单模式默认代理（兜底 \`MATCH,Proxy_Group\`）。
 - 国内流量固定直连（\`GEOSITE/CN + GEOIP/CN\`），分流规则优先于全局兜底。
-- 未命中任何分流规则时，流量默认走代理兜底（\`MATCH,Proxy_Group\`）。
+- 可选开启“屏蔽 QUIC”，会注入 \`AND,((DEST-PORT,443),(NETWORK,UDP)),REJECT\` 规则，减少部分 UDP/QUIC 异常。
 - 可选：通过“前置代理(入口，多选) + 落地代理(出口，单选)”配置链式代理（\`dialer-proxy\`）。
 
 ## Step 3 预览与导出
@@ -120,7 +125,7 @@ const highlightedYaml = computed(() => {
 
   return escaped
     .replace(/^(\s*)([\w-]+:)/gm, '$1<span class="text-sky-300">$2</span>')
-    .replace(/\b(RULE-SET|MATCH|IP-CIDR|SRC-IP-CIDR|DIRECT|Proxy_Group)\b/g, '<span class="text-emerald-300">$1</span>')
+    .replace(/\b(RULE-SET|MATCH|IP-CIDR|SRC-IP-CIDR|DIRECT|Proxy_Group|REJECT)\b/g, '<span class="text-emerald-300">$1</span>')
 })
 
 const chainRouteRows = computed(() => {
@@ -495,7 +500,8 @@ async function handleGenerate() {
       selectedNodeIds: routePrepared.selectedNodeIds,
       directCidrs: parseCIDRInput(),
       selections: buildSelections(),
-      mode: 'blacklist',
+      mode: parseMode.value,
+      blockQuic: blockQuic.value,
       proxyGroupName: proxyGroupName.value,
       servicesSnapshot: services.value
     }
@@ -641,12 +647,16 @@ onMounted(async () => {
         <h2 class="mb-3 font-display text-xl">全局代理与强制直连</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="text-sm text-slate-300">全局兜底策略</label>
+            <label class="text-sm text-slate-300">模式开关</label>
+            <el-radio-group v-model="parseMode" class="mt-2">
+              <el-radio-button label="blacklist">黑名单</el-radio-button>
+              <el-radio-button label="whitelist">白名单</el-radio-button>
+            </el-radio-group>
             <div class="mt-2 text-xs text-slate-300 rounded-lg bg-slate-900/40 border border-slate-700/70 px-3 py-2">
-              固定为 <code>MATCH, {{ proxyGroupName || 'Proxy_Group' }}</code>（未命中分流规则的流量默认走代理）。
+              当前兜底规则：<code>MATCH, {{ fallbackMatch }}</code>
             </div>
             <p class="text-xs text-slate-400 mt-2">
-              本工具已移除白名单模式，仅保留分流与黑名单直连逻辑：国内流量固定直连，其他流量默认代理，分流规则优先。
+              白名单：仅代理勾选服务，未命中默认直连。黑名单：未命中默认走代理组。国内流量仍固定直连。
             </p>
           </div>
           <div>
@@ -677,6 +687,16 @@ onMounted(async () => {
             含义：这里匹配的是源 IP（SRC-IP-CIDR），命中后无论访问哪个平台/服务都强制 DIRECT。示例：填入
             <code>10.0.0.0/24</code> 后，该网段来源流量全部直连。
           </p>
+        </div>
+
+        <div class="mt-4 rounded-lg bg-slate-900/40 border border-slate-700/70 px-3 py-3">
+          <div class="flex items-center justify-between gap-3">
+            <div>
+              <div class="text-sm text-slate-200">屏蔽 QUIC (UDP 443)</div>
+              <p class="text-xs text-slate-400 mt-1">开启后会在规则顶部加入 <code>AND,((DEST-PORT,443),(NETWORK,UDP)),REJECT</code>。</p>
+            </div>
+            <el-switch v-model="blockQuic" inline-prompt active-text="开" inactive-text="关" />
+          </div>
         </div>
       </div>
 

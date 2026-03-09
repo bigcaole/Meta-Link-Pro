@@ -1,4 +1,4 @@
-export type ParseMode = 'blacklist'
+export type ParseMode = 'whitelist' | 'blacklist'
 
 export type Protocol = 'vless' | 'tuic' | 'hysteria2' | 'ss' | 'trojan' | 'vmess'
 
@@ -43,6 +43,7 @@ export interface ServiceTree {
   name: string
   kind: 'platform' | 'category' | 'service'
   provider?: string
+  ruleUrl?: string
   ruleType?: string
   domains?: string[]
   keywords?: string[]
@@ -85,6 +86,7 @@ export interface GenerateMetaYAMLRequest {
   directCidrs: string[]
   selections: ServiceSelection[]
   mode: ParseMode
+  blockQuic: boolean
   proxyGroupName: string
   servicesSnapshot: ServiceTree[]
 }

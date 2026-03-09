@@ -47,6 +47,20 @@ func TestParseTUICUserInfo(t *testing.T) {
 	}
 }
 
+func TestParseTUICDefaults(t *testing.T) {
+	link := "tuic://123e4567-e89b-12d3-a456-426614174000:token@example.com:443#TUIC-Default"
+	node, issue := ParseLink(link)
+	if issue != nil {
+		t.Fatalf("unexpected issue: %+v", issue)
+	}
+	if node.CongestionControl != "bbr" {
+		t.Fatalf("expected default congestion bbr, got: %s", node.CongestionControl)
+	}
+	if !strings.Contains(node.ALPN, "h3") {
+		t.Fatalf("expected alpn to include h3, got: %s", node.ALPN)
+	}
+}
+
 func TestParseSS2022WithPlugin(t *testing.T) {
 	link := "ss://2022-blake3-aes-128-gcm:pass123@example.com:443?plugin=v2ray-plugin%3Bmode%3Dwebsocket%3Bhost%3Dcdn.example.com#SS2022"
 	node, issue := ParseLink(link)

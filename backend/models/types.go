@@ -3,6 +3,7 @@ package models
 type ParseMode string
 
 const (
+	ModeWhitelist ParseMode = "whitelist"
 	ModeBlacklist ParseMode = "blacklist"
 )
 
@@ -67,6 +68,7 @@ type ServiceTree struct {
 	Name       string        `json:"name"`
 	Kind       string        `json:"kind"`
 	Provider   string        `json:"provider,omitempty"`
+	RuleURL    string        `json:"ruleUrl,omitempty"`
 	RuleType   string        `json:"ruleType,omitempty"`
 	Domains    []string      `json:"domains,omitempty"`
 	Keywords   []string      `json:"keywords,omitempty"`
@@ -109,6 +111,7 @@ type GenerateMetaYAMLRequest struct {
 	DirectCIDRs      []string           `json:"directCidrs"`
 	Selections       []ServiceSelection `json:"selections"`
 	Mode             ParseMode          `json:"mode"`
+	BlockQUIC        bool               `json:"blockQuic"`
 	ProxyGroupName   string             `json:"proxyGroupName"`
 	ServicesSnapshot []ServiceTree      `json:"servicesSnapshot"`
 }

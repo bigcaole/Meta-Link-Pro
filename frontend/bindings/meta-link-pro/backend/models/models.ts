@@ -11,6 +11,7 @@ export class GenerateMetaYAMLRequest {
     "directCidrs": string[];
     "selections": ServiceSelection[];
     "mode": ParseMode;
+    "blockQuic": boolean;
     "proxyGroupName": string;
     "servicesSnapshot": ServiceTree[];
 
@@ -31,6 +32,9 @@ export class GenerateMetaYAMLRequest {
         if (!("mode" in $$source)) {
             this["mode"] = ParseMode.$zero;
         }
+        if (!("blockQuic" in $$source)) {
+            this["blockQuic"] = false;
+        }
         if (!("proxyGroupName" in $$source)) {
             this["proxyGroupName"] = "";
         }
@@ -49,7 +53,7 @@ export class GenerateMetaYAMLRequest {
         const $$createField1_0 = $$createType2;
         const $$createField2_0 = $$createType2;
         const $$createField3_0 = $$createType4;
-        const $$createField6_0 = $$createType6;
+        const $$createField7_0 = $$createType6;
         let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
         if ("nodes" in $$parsedSource) {
             $$parsedSource["nodes"] = $$createField0_0($$parsedSource["nodes"]);
@@ -64,7 +68,7 @@ export class GenerateMetaYAMLRequest {
             $$parsedSource["selections"] = $$createField3_0($$parsedSource["selections"]);
         }
         if ("servicesSnapshot" in $$parsedSource) {
-            $$parsedSource["servicesSnapshot"] = $$createField6_0($$parsedSource["servicesSnapshot"]);
+            $$parsedSource["servicesSnapshot"] = $$createField7_0($$parsedSource["servicesSnapshot"]);
         }
         return new GenerateMetaYAMLRequest($$parsedSource as Partial<GenerateMetaYAMLRequest>);
     }
@@ -105,6 +109,7 @@ export enum ParseMode {
      */
     $zero = "",
 
+    ModeWhitelist = "whitelist",
     ModeBlacklist = "blacklist",
 };
 
@@ -256,6 +261,7 @@ export class ServiceTree {
     "name": string;
     "kind": string;
     "provider"?: string;
+    "ruleUrl"?: string;
     "ruleType"?: string;
     "domains"?: string[];
     "keywords"?: string[];
@@ -282,22 +288,22 @@ export class ServiceTree {
      * Creates a new ServiceTree instance from a string or object.
      */
     static createFrom($$source: any = {}): ServiceTree {
-        const $$createField5_0 = $$createType2;
         const $$createField6_0 = $$createType2;
         const $$createField7_0 = $$createType2;
-        const $$createField9_0 = $$createType6;
+        const $$createField8_0 = $$createType2;
+        const $$createField10_0 = $$createType6;
         let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
         if ("domains" in $$parsedSource) {
-            $$parsedSource["domains"] = $$createField5_0($$parsedSource["domains"]);
+            $$parsedSource["domains"] = $$createField6_0($$parsedSource["domains"]);
         }
         if ("keywords" in $$parsedSource) {
-            $$parsedSource["keywords"] = $$createField6_0($$parsedSource["keywords"]);
+            $$parsedSource["keywords"] = $$createField7_0($$parsedSource["keywords"]);
         }
         if ("ipCidrs" in $$parsedSource) {
-            $$parsedSource["ipCidrs"] = $$createField7_0($$parsedSource["ipCidrs"]);
+            $$parsedSource["ipCidrs"] = $$createField8_0($$parsedSource["ipCidrs"]);
         }
         if ("children" in $$parsedSource) {
-            $$parsedSource["children"] = $$createField9_0($$parsedSource["children"]);
+            $$parsedSource["children"] = $$createField10_0($$parsedSource["children"]);
         }
         return new ServiceTree($$parsedSource as Partial<ServiceTree>);
     }

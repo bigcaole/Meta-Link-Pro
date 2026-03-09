@@ -173,7 +173,7 @@ func parseTUIC(raw string, u *url.URL) (models.ProxyNode, *models.ParseIssue) {
 		Port:              port,
 		UUID:              uuid,
 		Token:             token,
-		ALPN:              normalizeCSV(q.Get("alpn")),
+		ALPN:              ensureALPNHasH3(normalizeCSV(q.Get("alpn"))),
 		CongestionControl: congestion,
 		UDPRelayMode:      udpRelay,
 		SNI:               coalesce(q.Get("sni"), q.Get("serverName"), q.Get("servername")),
@@ -554,6 +554,7 @@ func parseClashEntry(entry map[string]string) (models.ProxyNode, *models.ParseIs
 		baseNode.Protocol = models.ProtocolTUIC
 		baseNode.UUID = uuid
 		baseNode.Token = token
+		baseNode.ALPN = ensureALPNHasH3(baseNode.ALPN)
 		baseNode.CongestionControl = strings.ToLower(coalesce(entry["congestion-controller"], entry["congestion-control"], "bbr"))
 		baseNode.UDPRelayMode = strings.ToLower(coalesce(entry["udp-relay-mode"], "native"))
 		return baseNode, nil
@@ -1109,6 +1110,36 @@ func normalizeCSV(value string) string {
 		cleaned = append(cleaned, part)
 	}
 	return strings.Join(cleaned, ",")
+}
+
+func ensureALPNHasH3(value string) string {
+	normalized := normalizeCSV(value)
+	if normalized == "" {
+		return "h3"
+	}
+
+	parts := strings.Split(normalized, ",")
+	seen := make(map[string]struct{}, len(parts))
+	out := make([]string, 0, len(parts)+1)
+	hasH3 := false
+	for _, part := range parts {
+		part = strings.ToLower(strings.TrimSpace(strings.Trim(part, "\"'")))
+		if part == "" {
+			continue
+		}
+		if _, ok := seen[part]; ok {
+			continue
+		}
+		seen[part] = struct{}{}
+		if part == "h3" {
+			hasH3 = true
+		}
+		out = append(out, part)
+	}
+	if !hasH3 {
+		out = append(out, "h3")
+	}
+	return strings.Join(out, ",")
 }
 
 func decodePath(path string) string {

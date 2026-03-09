@@ -3,6 +3,8 @@ package engine
 import (
 	"fmt"
 	"net"
+	neturl "net/url"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -17,6 +19,8 @@ type providerMeta struct {
 	URL      string
 	Path     string
 }
+
+var providerNameCleaner = regexp.MustCompile(`[^a-z0-9._-]+`)
 
 var builtinProviders = map[string]providerMeta{
 	"private": {
@@ -51,8 +55,8 @@ var builtinProviders = map[string]providerMeta{
 		Type:     "http",
 		Behavior: "classical",
 		Format:   "yaml",
-		URL:      "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Gmail/Gmail.yaml",
-		Path:     "./ruleset/gmail.yaml",
+		URL:      "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml",
+		Path:     "./ruleset/google.yaml",
 	},
 	"google-search": {
 		Type:     "http",
@@ -166,7 +170,7 @@ func RuleProviderURLs() []string {
 	urls := make([]string, 0, len(builtinProviders))
 	for _, meta := range builtinProviders {
 		url := strings.TrimSpace(meta.URL)
-		if url == "" {
+		if !isValidRuleURL(url) {
 			continue
 		}
 		if _, ok := seen[url]; ok {
@@ -183,6 +187,10 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	proxyGroup := strings.TrimSpace(req.ProxyGroupName)
 	if proxyGroup == "" {
 		proxyGroup = "Proxy_Group"
+	}
+	mode := req.Mode
+	if mode != models.ModeWhitelist {
+		mode = models.ModeBlacklist
 	}
 
 	selected := selectNodes(req.Nodes, req.SelectedNodeIDs)
@@ -203,32 +211,63 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 		serviceMap = services.FlattenServices(serviceTree)
 	}
 
-	providerNames := map[string]struct{}{
-		"private": {},
-		"cn":      {},
-	}
-
+	providerDefs := make(map[string]providerMeta)
+	providerURLToName := make(map[string]string)
 	providerRules := make([]string, 0)
 	serviceRules := make([]string, 0)
+	addProvider := func(hint string, meta providerMeta) (string, bool) {
+		if !isValidRuleURL(meta.URL) {
+			return "", false
+		}
+		if existing, ok := providerURLToName[meta.URL]; ok {
+			return existing, true
+		}
+
+		name := sanitizeProviderName(hint)
+		if name == "" {
+			name = "provider"
+		}
+		original := name
+		idx := 1
+		for {
+			if _, exists := providerDefs[name]; !exists {
+				break
+			}
+			name = fmt.Sprintf("%s-%d", original, idx)
+			idx++
+		}
+
+		if strings.TrimSpace(meta.Path) == "" {
+			meta.Path = fmt.Sprintf("./ruleset/%s.%s", name, providerFileExt(meta.Format))
+		}
+		providerDefs[name] = meta
+		providerURLToName[meta.URL] = name
+		return name, true
+	}
+
+	for _, globalProvider := range []string{"private", "cn"} {
+		if name, meta, ok := resolveProviderMeta(models.ServiceTree{ID: globalProvider, Provider: globalProvider}); ok {
+			addProvider(name, meta)
+		}
+	}
+
 	for _, s := range req.Selections {
 		if !s.Enabled {
 			continue
 		}
 		item, ok := serviceMap[s.ServiceID]
-		if !ok || item.Provider == "" {
+		if !ok {
 			continue
 		}
-		providerNames[item.Provider] = struct{}{}
 		policy := strings.TrimSpace(s.Policy)
 		if policy == "" {
 			policy = proxyGroup
 		}
 
 		providerBound := false
-		if item.Provider != "" {
-			if _, exists := builtinProviders[item.Provider]; exists {
-				providerNames[item.Provider] = struct{}{}
-				providerRules = append(providerRules, fmt.Sprintf("RULE-SET,%s,%s", item.Provider, policy))
+		if providerNameHint, providerMeta, ok := resolveProviderMeta(item); ok {
+			if providerName, added := addProvider(providerNameHint, providerMeta); added {
+				providerRules = append(providerRules, fmt.Sprintf("RULE-SET,%s,%s", providerName, policy))
 				providerBound = true
 			}
 		}
@@ -244,9 +283,9 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 		}
 	}
 
-	sort.Strings(directCIDRRules)
-	sort.Strings(serviceRules)
-	sort.Strings(providerRules)
+	directCIDRRules = uniqueStrings(directCIDRRules)
+	serviceRules = uniqueStrings(serviceRules)
+	providerRules = uniqueStrings(providerRules)
 
 	builder := &strings.Builder{}
 	builder.WriteString("mixed-port: 7890\n")
@@ -289,13 +328,10 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	builder.WriteString("\n")
 
 	builder.WriteString("rule-providers:\n")
-	providerList := mapKeys(providerNames)
+	providerList := mapKeys(providerDefs)
 	sort.Strings(providerList)
 	for _, name := range providerList {
-		meta, ok := builtinProviders[name]
-		if !ok {
-			continue
-		}
+		meta := providerDefs[name]
 		builder.WriteString(fmt.Sprintf("  %s:\n", name))
 		builder.WriteString(fmt.Sprintf("    type: %s\n", meta.Type))
 		builder.WriteString(fmt.Sprintf("    behavior: %s\n", meta.Behavior))
@@ -311,6 +347,9 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	for _, rule := range directCIDRRules {
 		builder.WriteString(fmt.Sprintf("  - %s\n", rule))
 	}
+	if req.BlockQUIC {
+		builder.WriteString("  - AND,((DEST-PORT,443),(NETWORK,UDP)),REJECT\n")
+	}
 	for _, rule := range serviceRules {
 		builder.WriteString(fmt.Sprintf("  - %s\n", rule))
 	}
@@ -322,7 +361,11 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	builder.WriteString("  - RULE-SET,cn,DIRECT\n")
 	builder.WriteString("  - GEOSITE,CN,DIRECT\n")
 	builder.WriteString("  - GEOIP,CN,DIRECT,no-resolve\n")
-	builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", proxyGroup))
+	matchTarget := proxyGroup
+	if mode == models.ModeWhitelist {
+		matchTarget = "DIRECT"
+	}
+	builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", matchTarget))
 
 	return builder.String(), nil
 }
@@ -565,6 +608,100 @@ func mapKeys[T any](m map[string]T) []string {
 	for key := range m {
 		out = append(out, key)
 	}
+	return out
+}
+
+func resolveProviderMeta(item models.ServiceTree) (string, providerMeta, bool) {
+	hint := strings.TrimSpace(item.Provider)
+	if hint == "" {
+		hint = strings.TrimSpace(item.ID)
+	}
+	hint = sanitizeProviderName(hint)
+	if hint == "" {
+		hint = "provider"
+	}
+
+	meta := providerMeta{
+		Type:     "http",
+		Behavior: "classical",
+		Format:   "yaml",
+	}
+	if builtin, ok := builtinProviders[item.Provider]; ok {
+		meta = builtin
+	}
+	if overrideURL := strings.TrimSpace(item.RuleURL); overrideURL != "" {
+		meta.URL = overrideURL
+	}
+	if !isValidRuleURL(meta.URL) {
+		return "", providerMeta{}, false
+	}
+
+	if strings.TrimSpace(meta.Type) == "" {
+		meta.Type = "http"
+	}
+	if strings.TrimSpace(meta.Behavior) == "" {
+		meta.Behavior = "classical"
+	}
+	if strings.TrimSpace(meta.Format) == "" {
+		meta.Format = "yaml"
+	}
+	if strings.TrimSpace(meta.Path) == "" {
+		meta.Path = fmt.Sprintf("./ruleset/%s.%s", hint, providerFileExt(meta.Format))
+	}
+	return hint, meta, true
+}
+
+func isValidRuleURL(raw string) bool {
+	raw = strings.TrimSpace(raw)
+	if raw == "" {
+		return false
+	}
+	parsed, err := neturl.Parse(raw)
+	if err != nil {
+		return false
+	}
+	if parsed.Host == "" {
+		return false
+	}
+	scheme := strings.ToLower(parsed.Scheme)
+	return scheme == "http" || scheme == "https"
+}
+
+func providerFileExt(format string) string {
+	if strings.EqualFold(strings.TrimSpace(format), "text") {
+		return "txt"
+	}
+	return "yaml"
+}
+
+func sanitizeProviderName(value string) string {
+	value = strings.TrimSpace(strings.ToLower(value))
+	if value == "" {
+		return ""
+	}
+	value = providerNameCleaner.ReplaceAllString(value, "-")
+	value = strings.Trim(value, "-.")
+	return value
+}
+
+func uniqueStrings(values []string) []string {
+	if len(values) == 0 {
+		return values
+	}
+	seen := make(map[string]struct{}, len(values))
+	out := make([]string, 0, len(values))
+	for _, value := range values {
+		value = strings.TrimSpace(value)
+		if value == "" {
+			continue
+		}
+		if _, ok := seen[value]; ok {
+			continue
+		}
+		seen[value] = struct{}{}
+		out = append(out, value)
+	}
+	sort.Strings(out)
 	return out
 }
 
