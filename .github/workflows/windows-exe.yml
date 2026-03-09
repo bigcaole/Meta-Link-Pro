@@ -1,0 +1,58 @@
+name: Build Windows EXE
+
+on:
+  push:
+    branches:
+      - main
+      - 'codex/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Run tests
+        run: go test ./...
+
+  build-windows:
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Build EXE
+        run: |
+          New-Item -ItemType Directory -Path dist -Force | Out-Null
+          go build -trimpath -ldflags "-s -w" -o dist/Meta-Link-Pro.exe .
+
+      - name: Create ZIP package
+        run: |
+          Compress-Archive -Path dist/Meta-Link-Pro.exe -DestinationPath dist/Meta-Link-Pro-windows-amd64.zip -Force
+
+      - name: SHA256
+        run: |
+          $hash = (Get-FileHash dist/Meta-Link-Pro-windows-amd64.zip -Algorithm SHA256).Hash
+          "${hash}  Meta-Link-Pro-windows-amd64.zip" | Out-File -FilePath dist/SHA256SUMS.txt -Encoding ascii
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: meta-link-pro-windows-amd64
+          path: |
+            dist/Meta-Link-Pro.exe
+            dist/Meta-Link-Pro-windows-amd64.zip
+            dist/SHA256SUMS.txt

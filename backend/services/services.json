@@ -1,0 +1,68 @@
+[
+  {
+    "id": "platform-google",
+    "name": "Google",
+    "kind": "platform",
+    "children": [
+      {"id": "svc-youtube", "name": "YouTube", "kind": "service", "provider": "youtube", "ruleType": "domain"},
+      {"id": "svc-gmail", "name": "Gmail", "kind": "service", "provider": "gmail", "ruleType": "domain"},
+      {"id": "svc-google-search", "name": "Search", "kind": "service", "provider": "google-search", "ruleType": "domain"},
+      {"id": "svc-gemini", "name": "AI/Gemini", "kind": "service", "provider": "gemini", "ruleType": "domain"}
+    ]
+  },
+  {
+    "id": "platform-microsoft",
+    "name": "Microsoft",
+    "kind": "platform",
+    "children": [
+      {"id": "svc-office", "name": "Office", "kind": "service", "provider": "office", "ruleType": "domain"},
+      {"id": "svc-azure", "name": "Azure", "kind": "service", "provider": "azure", "ruleType": "domain"}
+    ]
+  },
+  {
+    "id": "platform-apple",
+    "name": "Apple",
+    "kind": "platform",
+    "children": [
+      {"id": "svc-icloud", "name": "iCloud", "kind": "service", "provider": "icloud", "ruleType": "domain"},
+      {"id": "svc-appstore", "name": "App Store", "kind": "service", "provider": "appstore", "ruleType": "domain"},
+      {"id": "svc-apple-music", "name": "Apple Music", "kind": "service", "provider": "applemusic", "ruleType": "domain"}
+    ]
+  },
+  {
+    "id": "category-ai",
+    "name": "AI 服务",
+    "kind": "category",
+    "children": [
+      {"id": "svc-openai", "name": "OpenAI", "kind": "service", "provider": "openai", "ruleType": "domain"},
+      {"id": "svc-claude", "name": "Claude", "kind": "service", "provider": "claude", "ruleType": "domain"}
+    ]
+  },
+  {
+    "id": "category-streaming",
+    "name": "流媒体",
+    "kind": "category",
+    "children": [
+      {"id": "svc-netflix", "name": "Netflix", "kind": "service", "provider": "netflix", "ruleType": "domain"},
+      {"id": "svc-disney", "name": "Disney+", "kind": "service", "provider": "disney", "ruleType": "domain"}
+    ]
+  },
+  {
+    "id": "category-social",
+    "name": "社交",
+    "kind": "category",
+    "children": [
+      {"id": "svc-telegram", "name": "Telegram", "kind": "service", "provider": "telegram", "ruleType": "ipcidr"},
+      {"id": "svc-x", "name": "X", "kind": "service", "provider": "x", "ruleType": "domain"}
+    ]
+  },
+  {
+    "id": "category-gaming",
+    "name": "游戏",
+    "kind": "category",
+    "children": [
+      {"id": "svc-steam", "name": "Steam", "kind": "service", "provider": "steam", "ruleType": "domain"},
+      {"id": "svc-epic", "name": "Epic", "kind": "service", "provider": "epic", "ruleType": "domain"}
+    ]
+  }
+]
