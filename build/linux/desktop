@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=Meta-Link Pro
+Comment=Convert proxy links to OpenClash Meta (Mihomo) advanced YAML locally
+# The Exec line includes %u to pass the URL to the application
+Exec=/usr/local/bin/Meta-Link-Pro %u
+Terminal=false
+Type=Application
+Icon=Meta-Link-Pro
+Categories=Utility;
+StartupWMClass=Meta-Link-Pro
+
+ 

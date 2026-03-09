@@ -1,0 +1,15 @@
+{
+	"fixed": {
+		"file_version": "0.1.0"
+	},
+	"info": {
+		"0000": {
+			"ProductVersion": "0.1.0",
+			"CompanyName": "Meta-Link Pro",
+			"FileDescription": "Convert proxy links to OpenClash Meta (Mihomo) advanced YAML locally",
+			"LegalCopyright": "(c) 2026, Meta-Link Pro",
+			"ProductName": "Meta-Link Pro",
+			"Comments": "All data is processed locally"
+		}
+	}
+}

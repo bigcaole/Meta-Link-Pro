@@ -17,7 +17,8 @@ Meta-Link Pro 是一个基于 **Go + Wails v3 + Vue3 + Tailwind + Element Plus**
   - `dialer-proxy` 链式代理输出
 - 前端三步流程：导入解析 -> 分流配置 -> YAML 预览与导出
 - 导出：后端 `ExportToDesktop` 写入系统桌面
-- CLI 可执行入口：可直接输入链接/订阅并生成 YAML（用于 Windows `.exe` 测试）
+- Wails GUI 主入口：`main.go`（已接入真实桌面窗口与服务绑定）
+- CLI 可执行入口：`cmd/metalink-cli/main.go`（可选）
 
 ## 目录
 
@@ -36,18 +37,28 @@ go test ./...
 ## Windows EXE 自动打包
 
 - 工作流文件：`.github/workflows/windows-exe.yml`
-- 触发方式：推送到 `main` 或 `codex/**` 分支，或手动 `workflow_dispatch`
-- 下载路径：GitHub Actions 运行详情中的 Artifact `meta-link-pro-windows-amd64`
+- 触发方式：
+  - 推送到 `main` / `codex/**`：产出 Actions Artifact
+  - 推送标签 `v*`：自动创建 GitHub Release 并上传安装包
+- 下载路径：
+  - Artifact：Actions 运行详情中的 `meta-link-pro-windows-amd64`
+  - Release：仓库 `Releases` 页面
 
-CLI 示例：
+Wails GUI 本地构建：
 
 ```bash
-Meta-Link-Pro.exe -input-file input.txt -mode blacklist -output meta.yaml
+wails3 task windows:build PRODUCTION=true
+```
+
+CLI 示例（可选）：
+
+```bash
+go run ./cmd/metalink-cli -input-file input.txt -mode blacklist -output meta.yaml
 ```
 
 ## 接入 Wails v3
 
-在 Wails v3 启动代码里绑定 `backend.NewApp()`，并将其方法暴露给前端：
+Wails 服务绑定已完成，前端可调用以下后端方法：
 
 - `ParseLinks(input string)`
 - `LoadServiceTree()`
