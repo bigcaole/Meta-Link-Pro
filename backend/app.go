@@ -32,7 +32,7 @@ func (a *App) ParseLinks(input string) models.ParseReport {
 				{
 					Protocol: "INIT",
 					Field:    "update",
-					Message:  "依赖更新检查尚未完成，请稍候再解析",
+					Message:  "依赖版本检查尚未完成，请稍候再解析",
 				},
 			},
 		}
@@ -85,5 +85,5 @@ func (a *App) ensureReadyForOperations() error {
 	if a.isUpdateCheckCompleted() {
 		return nil
 	}
-	return fmt.Errorf("依赖更新检查尚未完成，请稍候")
+	return fmt.Errorf("依赖版本检查尚未完成，请稍候")
 }

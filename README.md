@@ -12,12 +12,13 @@ Meta-Link Pro 是一个基于 **Go + Wails v3 + Vue3 + Tailwind + Element Plus**
 - YAML 生成：
   - fake-ip DNS 预设
   - rule-providers 自动注入（含 Loyalsoldier 与 Blackmatrix7）
-  - 规则优先级：自定义直连 IP > 特定服务 > 全局规则 > MATCH
-  - 白名单/黑名单模式切换
+  - 规则优先级：强制直连源 IP > 特定服务 > 全局规则 > MATCH
+  - 黑名单单模式（`MATCH,Proxy_Group` 兜底代理）
   - `dialer-proxy` 链式代理输出
+- 启动依赖版本检查：启动即检查规则集/GEOSITE/GEOIP 版本标识是否最新，检查完成前锁定解析与导出
 - 前端三步流程：导入解析 -> 分流配置 -> YAML 预览与导出
 - 链式代理交互升级：显式“前置代理(入口) -> 落地代理(出口)”配置器
-- 分流对象树扩容：平台与分类（购物/短视频/影视/直播/成人/开发/社交/游戏/AI）及大量服务项
+- 分流对象树扩容：支持分类级一键策略应用，新增“测速平台”“IP 检测平台”等分类
 - 导出：后端 `ExportToDesktop` 写入系统桌面
 - Wails GUI 主入口：`main.go`（已接入真实桌面窗口与服务绑定）
 - CLI 可执行入口：`cmd/metalink-cli/main.go`（可选）
@@ -55,7 +56,7 @@ wails3 task windows:build PRODUCTION=true
 CLI 示例（可选）：
 
 ```bash
-go run ./cmd/metalink-cli -input-file input.txt -mode blacklist -output meta.yaml
+go run ./cmd/metalink-cli -input-file input.txt -output meta.yaml
 ```
 
 ## 接入 Wails v3
@@ -66,3 +67,5 @@ Wails 服务绑定已完成，前端可调用以下后端方法：
 - `LoadServiceTree()`
 - `GenerateMetaYAML(req)`
 - `ExportToDesktop(content string)`
+- `StartUpdateCheck()`
+- `GetUpdateStatus()`

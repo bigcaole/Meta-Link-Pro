@@ -2676,5 +2676,203 @@
         ]
       }
     ]
+  },
+  {
+    "id": "category-speedtest",
+    "name": "测速平台",
+    "kind": "category",
+    "children": [
+      {
+        "id": "svc-speedtest-net",
+        "name": "Speedtest by Ookla",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "speedtest.net",
+          "ooklaserver.net"
+        ]
+      },
+      {
+        "id": "svc-fast",
+        "name": "Fast.com",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "fast.com",
+          "netflix.com"
+        ]
+      },
+      {
+        "id": "svc-cloudflare-speed",
+        "name": "Cloudflare Speed Test",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "speed.cloudflare.com",
+          "cloudflare.com"
+        ]
+      },
+      {
+        "id": "svc-nperf",
+        "name": "nPerf",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "nperf.com"
+        ]
+      },
+      {
+        "id": "svc-testmynet",
+        "name": "TestMy.net",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "testmy.net"
+        ]
+      },
+      {
+        "id": "svc-openspeedtest",
+        "name": "OpenSpeedTest",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "openspeedtest.com"
+        ]
+      },
+      {
+        "id": "svc-speedcheck",
+        "name": "Speedcheck",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "speedcheck.org"
+        ]
+      },
+      {
+        "id": "svc-speedof",
+        "name": "SpeedOf.Me",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "speedof.me"
+        ]
+      },
+      {
+        "id": "svc-mlab",
+        "name": "M-Lab",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "measurementlab.net"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "category-ipcheck",
+    "name": "IP 检测平台",
+    "kind": "category",
+    "children": [
+      {
+        "id": "svc-ipinfo",
+        "name": "ipinfo",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ipinfo.io"
+        ]
+      },
+      {
+        "id": "svc-ipify",
+        "name": "ipify",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ipify.org",
+          "api.ipify.org"
+        ]
+      },
+      {
+        "id": "svc-ipsb",
+        "name": "ip.sb",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ip.sb"
+        ]
+      },
+      {
+        "id": "svc-ifconfigme",
+        "name": "ifconfig.me",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ifconfig.me"
+        ]
+      },
+      {
+        "id": "svc-icanhazip",
+        "name": "icanhazip",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "icanhazip.com"
+        ]
+      },
+      {
+        "id": "svc-whatismyip",
+        "name": "WhatIsMyIPAddress",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "whatismyipaddress.com"
+        ]
+      },
+      {
+        "id": "svc-myip",
+        "name": "MyIP",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "myip.com"
+        ]
+      },
+      {
+        "id": "svc-ipapi",
+        "name": "ip-api",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ip-api.com"
+        ]
+      },
+      {
+        "id": "svc-iplocation",
+        "name": "IPLocation",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "iplocation.net"
+        ]
+      },
+      {
+        "id": "svc-browserleaks",
+        "name": "BrowserLeaks",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "browserleaks.com"
+        ]
+      },
+      {
+        "id": "svc-ifconfigco",
+        "name": "ifconfig.co",
+        "kind": "service",
+        "ruleType": "domain",
+        "domains": [
+          "ifconfig.co"
+        ]
+      }
+    ]
   }
 ]

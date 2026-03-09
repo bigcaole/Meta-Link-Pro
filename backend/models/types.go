@@ -3,7 +3,6 @@ package models
 type ParseMode string
 
 const (
-	ModeWhitelist ParseMode = "whitelist"
 	ModeBlacklist ParseMode = "blacklist"
 )
 

@@ -1,4 +1,4 @@
-export type ParseMode = 'whitelist' | 'blacklist'
+export type ParseMode = 'blacklist'
 
 export type Protocol = 'vless' | 'tuic' | 'hysteria2' | 'ss' | 'trojan' | 'vmess'
 

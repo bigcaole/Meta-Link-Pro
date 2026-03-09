@@ -15,9 +15,8 @@ func main() {
 	input := flag.String("input", "", "raw links/subscription/yaml content")
 	inputFile := flag.String("input-file", "", "path to input text file")
 	outputFile := flag.String("output", "meta-link-pro.yaml", "output yaml file path")
-	mode := flag.String("mode", "whitelist", "global mode: whitelist|blacklist")
 	proxyGroup := flag.String("proxy-group", "Proxy_Group", "proxy group name")
-	directCIDRs := flag.String("direct-cidrs", "", "comma-separated direct CIDRs/IPs")
+	directCIDRs := flag.String("direct-cidrs", "", "comma-separated source CIDRs/IPs for forced DIRECT")
 	flag.Parse()
 
 	raw, err := readInput(*input, *inputFile)
@@ -48,7 +47,7 @@ func main() {
 		SelectedNodeIDs:  selectedIDs,
 		DirectCIDRs:      splitCSV(*directCIDRs),
 		Selections:       nil,
-		Mode:             parseMode(*mode),
+		Mode:             models.ModeBlacklist,
 		ProxyGroupName:   *proxyGroup,
 		ServicesSnapshot: serviceTree,
 	}
@@ -76,13 +75,6 @@ func readInput(input string, inputFile string) (string, error) {
 		return string(data), nil
 	}
 	return "", fmt.Errorf("please provide -input or -input-file")
-}
-
-func parseMode(mode string) models.ParseMode {
-	if strings.EqualFold(strings.TrimSpace(mode), string(models.ModeBlacklist)) {
-		return models.ModeBlacklist
-	}
-	return models.ModeWhitelist
 }
 
 func splitCSV(raw string) []string {

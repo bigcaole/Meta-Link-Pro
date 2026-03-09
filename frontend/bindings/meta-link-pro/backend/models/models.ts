@@ -105,7 +105,6 @@ export enum ParseMode {
      */
     $zero = "",
 
-    ModeWhitelist = "whitelist",
     ModeBlacklist = "blacklist",
 };
 

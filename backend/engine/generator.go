@@ -221,11 +221,7 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 		providerNames[item.Provider] = struct{}{}
 		policy := strings.TrimSpace(s.Policy)
 		if policy == "" {
-			if req.Mode == models.ModeBlacklist {
-				policy = "DIRECT"
-			} else {
-				policy = proxyGroup
-			}
+			policy = proxyGroup
 		}
 
 		providerBound := false
@@ -244,7 +240,7 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	directCIDRRules := make([]string, 0)
 	for _, item := range req.DirectCIDRs {
 		if cidr := normalizeCIDR(item); cidr != "" {
-			directCIDRRules = append(directCIDRRules, fmt.Sprintf("IP-CIDR,%s,DIRECT,no-resolve", cidr))
+			directCIDRRules = append(directCIDRRules, fmt.Sprintf("SRC-IP-CIDR,%s,DIRECT", cidr))
 		}
 	}
 
@@ -326,11 +322,7 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	builder.WriteString("  - RULE-SET,cn,DIRECT\n")
 	builder.WriteString("  - GEOSITE,CN,DIRECT\n")
 	builder.WriteString("  - GEOIP,CN,DIRECT,no-resolve\n")
-	if req.Mode == models.ModeWhitelist {
-		builder.WriteString("  - MATCH,DIRECT\n")
-	} else {
-		builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", proxyGroup))
-	}
+	builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", proxyGroup))
 
 	return builder.String(), nil
 }

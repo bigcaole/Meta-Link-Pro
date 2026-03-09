@@ -7,7 +7,7 @@ import (
 	"meta-link-pro/backend/models"
 )
 
-func TestGenerateMetaYAMLRuleOrderWhitelist(t *testing.T) {
+func TestGenerateMetaYAMLRuleOrderBlacklist(t *testing.T) {
 	req := models.GenerateMetaYAMLRequest{
 		Nodes: []models.ProxyNode{
 			{
@@ -25,7 +25,7 @@ func TestGenerateMetaYAMLRuleOrderWhitelist(t *testing.T) {
 		Selections: []models.ServiceSelection{
 			{ServiceID: "svc-openai", Enabled: true, Policy: "Proxy_Group"},
 		},
-		Mode:           models.ModeWhitelist,
+		Mode:           models.ModeBlacklist,
 		ProxyGroupName: "Proxy_Group",
 		ServicesSnapshot: []models.ServiceTree{
 			{ID: "category-ai", Kind: "category", Children: []models.ServiceTree{{ID: "svc-openai", Kind: "service", Provider: "openai"}}},
@@ -37,12 +37,12 @@ func TestGenerateMetaYAMLRuleOrderWhitelist(t *testing.T) {
 		t.Fatalf("unexpected error: %v", err)
 	}
 
-	idxCIDR := strings.Index(yaml, "IP-CIDR,192.168.1.100/32,DIRECT,no-resolve")
+	idxCIDR := strings.Index(yaml, "SRC-IP-CIDR,192.168.1.100/32,DIRECT")
 	idxSvc := strings.Index(yaml, "RULE-SET,openai,Proxy_Group")
 	idxGlobal := strings.Index(yaml, "RULE-SET,private,DIRECT")
 	idxGeoSiteCN := strings.Index(yaml, "GEOSITE,CN,DIRECT")
 	idxCN := strings.Index(yaml, "GEOIP,CN,DIRECT,no-resolve")
-	idxMatch := strings.Index(yaml, "MATCH,DIRECT")
+	idxMatch := strings.Index(yaml, "MATCH,Proxy_Group")
 
 	if !(idxCIDR < idxSvc && idxSvc < idxGlobal && idxGlobal < idxGeoSiteCN && idxGeoSiteCN < idxCN && idxCN < idxMatch) {
 		t.Fatalf("rule order invalid:\n%s", yaml)

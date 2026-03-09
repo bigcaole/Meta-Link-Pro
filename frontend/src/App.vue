@@ -4,7 +4,6 @@ import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import type {
   GenerateMetaYAMLRequest,
-  ParseMode,
   ParseReport,
   ProxyNode,
   ServiceSelection,
@@ -44,11 +43,11 @@ const chainEntryNodeIds = ref<string[]>([])
 const chainExitNodeId = ref('')
 const chainRoutes = ref<ChainRoute[]>([])
 
-const mode = ref<ParseMode>('whitelist')
 const proxyGroupName = ref('Proxy_Group')
 const directCIDRText = ref('')
 
 const selectionState = reactive<Record<string, { enabled: boolean; policy: string }>>({})
+const groupSelectionState = reactive<Record<string, { enabled: boolean; policy: string }>>({})
 
 const yamlPreview = ref('')
 const isUpdateReady = computed(() => updateStatus.value.completed)
@@ -57,20 +56,19 @@ const updateFailureCount = computed(() => updateStatus.value.steps.filter((item)
 const guideMarkdown = `# Meta-Link Pro 使用指南
 
 > 安全提示：**所有数据仅在本地处理，不上传服务器**。
-> 启动流程：工具会先检查规则集与 GEOSITE/GEOIP 依赖源状态，完成前会锁定解析与导出功能。
+> 启动流程：工具会先检查规则集与 GEOSITE/GEOIP 依赖版本是否为最新，完成前会锁定解析与导出功能。
 
 ## Step 1 导入链接
 - 粘贴单链、多链或订阅链接（http/https）。
 - 系统会实时解析并显示节点与失败归因（例如 \`[TUIC] Token缺失\`）。
 
 ## Step 2 配置分流
-- 输入强制直连 IP/CIDR（每行一个，如 \`192.168.1.100\`），这些目标总是优先直连。
+- 输入强制直连源 IP/CIDR（每行一个，如 \`192.168.1.100\`），命中后始终直连（优先级最高）。
 - 在“平台/类别”树中为每个服务指定策略：\`DIRECT\`、\`Proxy_Group\` 或具体节点。
+- 支持平台/分类级一键策略：例如可一键让整个 Google 平台都走同一策略。
 - 分流树标题会显示各分类的服务数量，便于快速定位大类。
-- 选择全局模式：
-  - 白名单：勾选服务默认走代理（你也可改成 DIRECT/指定节点），未命中流量兜底直连（\`MATCH,DIRECT\`）。
-  - 黑名单：勾选服务默认走直连（用于“只把这些服务直连”）。
 - 国内流量固定直连（\`GEOSITE/CN + GEOIP/CN\`），分流规则优先于全局兜底。
+- 未命中任何分流规则时，流量默认走代理兜底（\`MATCH,Proxy_Group\`）。
 - 可选：通过“前置代理(入口，多选) + 落地代理(出口，单选)”配置链式代理（\`dialer-proxy\`）。
 
 ## Step 3 预览与导出
@@ -122,7 +120,7 @@ const highlightedYaml = computed(() => {
 
   return escaped
     .replace(/^(\s*)([\w-]+:)/gm, '$1<span class="text-sky-300">$2</span>')
-    .replace(/\b(RULE-SET|MATCH|IP-CIDR|DIRECT|Proxy_Group)\b/g, '<span class="text-emerald-300">$1</span>')
+    .replace(/\b(RULE-SET|MATCH|IP-CIDR|SRC-IP-CIDR|DIRECT|Proxy_Group)\b/g, '<span class="text-emerald-300">$1</span>')
 })
 
 const chainRouteRows = computed(() => {
@@ -199,10 +197,31 @@ function ensureLeafState(serviceID: string) {
   if (!selectionState[serviceID]) {
     selectionState[serviceID] = {
       enabled: false,
-      policy: mode.value === 'blacklist' ? 'DIRECT' : proxyGroupName.value
+      policy: proxyGroupName.value
     }
   }
   return selectionState[serviceID]
+}
+
+function ensureGroupState(groupID: string) {
+  if (!groupSelectionState[groupID]) {
+    groupSelectionState[groupID] = {
+      enabled: false,
+      policy: proxyGroupName.value
+    }
+  }
+  return groupSelectionState[groupID]
+}
+
+function applyGroupPolicy(group: ServiceTree) {
+  const state = ensureGroupState(group.id)
+  const leaves = collectLeafServices(group)
+  leaves.forEach((leaf) => {
+    const leafState = ensureLeafState(leaf.id)
+    leafState.enabled = state.enabled
+    leafState.policy = state.policy
+  })
+  ElMessage.success(`已将策略应用到 ${group.name}（${leaves.length} 个服务）`)
 }
 
 function findNodeById(nodeId: string): ProxyNode | undefined {
@@ -322,7 +341,7 @@ async function initializeUpdateCheck() {
       running: false,
       completed: true,
       progress: 100,
-      message: `更新检查启动失败：${(error as Error).message}`,
+      message: `版本检查启动失败：${(error as Error).message}`,
       steps: []
     }
     return
@@ -351,7 +370,7 @@ async function initializeUpdateCheck() {
 async function handleParse(silent = false) {
   if (!isUpdateReady.value) {
     if (!silent) {
-      ElMessage.warning('依赖更新检查尚未完成，请稍候')
+      ElMessage.warning('依赖版本检查尚未完成，请稍候')
     }
     return
   }
@@ -464,7 +483,7 @@ function buildNodesWithChainRoutes(baseNodes: ProxyNode[]) {
 
 async function handleGenerate() {
   if (!isUpdateReady.value) {
-    ElMessage.warning('依赖更新检查尚未完成，请稍候')
+    ElMessage.warning('依赖版本检查尚未完成，请稍候')
     return
   }
 
@@ -476,7 +495,7 @@ async function handleGenerate() {
       selectedNodeIds: routePrepared.selectedNodeIds,
       directCidrs: parseCIDRInput(),
       selections: buildSelections(),
-      mode: mode.value,
+      mode: 'blacklist',
       proxyGroupName: proxyGroupName.value,
       servicesSnapshot: services.value
     }
@@ -493,7 +512,7 @@ async function handleGenerate() {
 
 async function handleExport() {
   if (!isUpdateReady.value) {
-    ElMessage.warning('依赖更新检查尚未完成，请稍候')
+    ElMessage.warning('依赖版本检查尚未完成，请稍候')
     return
   }
 
@@ -529,7 +548,7 @@ onMounted(async () => {
 
     <section class="mb-6 rounded-2xl glass p-5">
       <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-        <h2 class="font-display text-xl">启动依赖检查</h2>
+        <h2 class="font-display text-xl">启动依赖版本检查</h2>
         <el-tag :type="isUpdateReady ? 'success' : 'warning'" effect="dark">
           {{ isUpdateReady ? '检查完成' : '检查中' }}
         </el-tag>
@@ -541,7 +560,7 @@ onMounted(async () => {
       />
       <p class="text-xs text-slate-300 mt-2">{{ updateStatus.message }}</p>
       <p v-if="isUpdateReady && updateFailureCount > 0" class="text-xs text-amber-300 mt-1">
-        有 {{ updateFailureCount }} 个依赖源检查失败，工具仍可使用，建议稍后重试网络环境。
+        有 {{ updateFailureCount }} 个依赖版本检查失败，工具仍可使用，建议稍后重试网络环境。
       </p>
       <div class="mt-3 max-h-28 overflow-auto pr-1 space-y-1">
         <div
@@ -619,18 +638,15 @@ onMounted(async () => {
 
     <section v-show="activeStep === 1" class="space-y-4">
       <div class="rounded-2xl glass p-5">
-        <h2 class="mb-3 font-display text-xl">全局策略与强制直连</h2>
+        <h2 class="mb-3 font-display text-xl">全局代理与强制直连</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="text-sm text-slate-300">全局策略开关</label>
-            <el-radio-group v-model="mode" class="mt-2">
-              <el-radio-button label="whitelist">白名单模式</el-radio-button>
-              <el-radio-button label="blacklist">黑名单模式</el-radio-button>
-            </el-radio-group>
+            <label class="text-sm text-slate-300">全局兜底策略</label>
+            <div class="mt-2 text-xs text-slate-300 rounded-lg bg-slate-900/40 border border-slate-700/70 px-3 py-2">
+              固定为 <code>MATCH, {{ proxyGroupName || 'Proxy_Group' }}</code>（未命中分流规则的流量默认走代理）。
+            </div>
             <p class="text-xs text-slate-400 mt-2">
-              白名单示例：启用 <code>YouTube</code> 且策略为 <code>Proxy_Group</code>，则 YouTube 走代理。黑名单示例：启用
-              <code>GitHub</code> 且策略为 <code>DIRECT</code>，则 GitHub 强制直连。白名单兜底为 <code>MATCH,DIRECT</code>，黑名单兜底为
-              <code>MATCH,Proxy_Group</code>。
+              本工具已移除白名单模式，仅保留分流与黑名单直连逻辑：国内流量固定直连，其他流量默认代理，分流规则优先。
             </p>
           </div>
           <div>
@@ -649,17 +665,17 @@ onMounted(async () => {
         </div>
 
         <div class="mt-4">
-          <label class="text-sm text-slate-300">强制直连列表（最高优先级，IP/CIDR）</label>
+          <label class="text-sm text-slate-300">强制直连源 IP 黑名单（最高优先级，SRC-IP/CIDR）</label>
           <el-input
             v-model="directCIDRText"
             type="textarea"
             :rows="4"
             class="mt-2"
-            placeholder="示例: 192.168.1.100 / 10.0.0.0/24 / 1.1.1.1"
+            placeholder="示例: 192.168.1.100 / 10.0.0.0/24 / 172.16.0.0/16"
           />
           <p class="text-xs text-slate-400 mt-2">
-            含义：这里的 IP/CIDR 无论命中任何分流规则，都会被强制 DIRECT。示例：填入
-            <code>1.1.1.1</code> 后，对该地址的访问始终直连。
+            含义：这里匹配的是源 IP（SRC-IP-CIDR），命中后无论访问哪个平台/服务都强制 DIRECT。示例：填入
+            <code>10.0.0.0/24</code> 后，该网段来源流量全部直连。
           </p>
         </div>
       </div>
@@ -730,6 +746,32 @@ onMounted(async () => {
             :title="groupTitle(group)"
           >
             <div class="space-y-3">
+              <div class="rounded-lg bg-slate-900/40 px-3 py-3 border border-slate-700/70">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <div class="text-xs text-slate-300">分类级策略（应用到当前分类全部服务）</div>
+                  <div class="flex items-center gap-2">
+                    <el-switch
+                      v-model="ensureGroupState(group.id).enabled"
+                      inline-prompt
+                      active-text="启用"
+                      inactive-text="关闭"
+                    />
+                    <el-select
+                      v-model="ensureGroupState(group.id).policy"
+                      class="min-w-[200px]"
+                      :disabled="!ensureGroupState(group.id).enabled"
+                    >
+                      <el-option
+                        v-for="option in policyOptions"
+                        :key="`${group.id}-group-${option.value}`"
+                        :label="option.label"
+                        :value="option.value"
+                      />
+                    </el-select>
+                    <el-button type="primary" plain @click="applyGroupPolicy(group)">应用到本分类</el-button>
+                  </div>
+                </div>
+              </div>
               <div
                 v-for="leaf in collectLeafServices(group)"
                 :key="leaf.id"
