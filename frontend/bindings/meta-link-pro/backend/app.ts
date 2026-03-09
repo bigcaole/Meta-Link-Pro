@@ -22,19 +22,32 @@ export function GenerateMetaYAML(req: models$0.GenerateMetaYAMLRequest): $Cancel
     return $Call.ByID(407915414, req);
 }
 
+export function GetUpdateStatus(): $CancellablePromise<models$0.UpdateStatus> {
+    return $Call.ByID(1444054506).then(($result: any) => {
+        return $$createType0($result);
+    });
+}
+
 export function LoadServiceTree(): $CancellablePromise<models$0.ServiceTree[]> {
     return $Call.ByID(822027430).then(($result: any) => {
-        return $$createType1($result);
+        return $$createType2($result);
     });
 }
 
 export function ParseLinks(input: string): $CancellablePromise<models$0.ParseReport> {
     return $Call.ByID(146865531, input).then(($result: any) => {
-        return $$createType2($result);
+        return $$createType3($result);
+    });
+}
+
+export function StartUpdateCheck(): $CancellablePromise<models$0.UpdateStatus> {
+    return $Call.ByID(3693088476).then(($result: any) => {
+        return $$createType0($result);
     });
 }
 
 // Private type creation functions
-const $$createType0 = models$0.ServiceTree.createFrom;
-const $$createType1 = $Create.Array($$createType0);
-const $$createType2 = models$0.ParseReport.createFrom;
+const $$createType0 = models$0.UpdateStatus.createFrom;
+const $$createType1 = models$0.ServiceTree.createFrom;
+const $$createType2 = $Create.Array($$createType1);
+const $$createType3 = models$0.ParseReport.createFrom;

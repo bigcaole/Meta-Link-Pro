@@ -9,5 +9,7 @@ export {
     Protocol,
     ProxyNode,
     ServiceSelection,
-    ServiceTree
+    ServiceTree,
+    UpdateStatus,
+    UpdateStep
 } from "./models.js";

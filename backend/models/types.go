@@ -81,6 +81,23 @@ type ParseReport struct {
 	Errors []ParseIssue `json:"errors"`
 }
 
+type UpdateStep struct {
+	Name   string `json:"name"`
+	URL    string `json:"url"`
+	Status string `json:"status"`
+	Detail string `json:"detail"`
+}
+
+type UpdateStatus struct {
+	Running    bool         `json:"running"`
+	Completed  bool         `json:"completed"`
+	Progress   int          `json:"progress"`
+	Message    string       `json:"message"`
+	StartedAt  string       `json:"startedAt,omitempty"`
+	FinishedAt string       `json:"finishedAt,omitempty"`
+	Steps      []UpdateStep `json:"steps"`
+}
+
 type ServiceSelection struct {
 	ServiceID string `json:"serviceId"`
 	Policy    string `json:"policy"`

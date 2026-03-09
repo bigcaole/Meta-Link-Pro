@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"sync"
 	"time"
 
 	"meta-link-pro/backend/engine"
@@ -12,13 +13,30 @@ import (
 )
 
 // App is the Wails service entrypoint.
-type App struct{}
+type App struct {
+	updateMu      sync.RWMutex
+	updateStatus  models.UpdateStatus
+	updateStarted bool
+}
 
 func NewApp() *App {
-	return &App{}
+	app := &App{}
+	app.startUpdateCheck()
+	return app
 }
 
 func (a *App) ParseLinks(input string) models.ParseReport {
+	if !a.isUpdateCheckCompleted() {
+		return models.ParseReport{
+			Errors: []models.ParseIssue{
+				{
+					Protocol: "INIT",
+					Field:    "update",
+					Message:  "依赖更新检查尚未完成，请稍候再解析",
+				},
+			},
+		}
+	}
 	return engine.ParseInput(input)
 }
 
@@ -27,10 +45,16 @@ func (a *App) LoadServiceTree() ([]models.ServiceTree, error) {
 }
 
 func (a *App) GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
+	if err := a.ensureReadyForOperations(); err != nil {
+		return "", err
+	}
 	return engine.GenerateMetaYAML(req)
 }
 
 func (a *App) ExportToDesktop(content string) (string, error) {
+	if err := a.ensureReadyForOperations(); err != nil {
+		return "", err
+	}
 	home, err := os.UserHomeDir()
 	if err != nil {
 		return "", fmt.Errorf("无法获取用户目录: %w", err)
@@ -46,4 +70,20 @@ func (a *App) ExportToDesktop(content string) (string, error) {
 		return "", fmt.Errorf("导出失败: %w", err)
 	}
 	return path, nil
+}
+
+func (a *App) StartUpdateCheck() models.UpdateStatus {
+	a.startUpdateCheck()
+	return a.GetUpdateStatus()
+}
+
+func (a *App) GetUpdateStatus() models.UpdateStatus {
+	return a.copyUpdateStatus()
+}
+
+func (a *App) ensureReadyForOperations() error {
+	if a.isUpdateCheckCompleted() {
+		return nil
+	}
+	return fmt.Errorf("依赖更新检查尚未完成，请稍候")
 }

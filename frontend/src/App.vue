@@ -8,9 +8,10 @@ import type {
   ParseReport,
   ProxyNode,
   ServiceSelection,
-  ServiceTree
+  ServiceTree,
+  UpdateStatus
 } from './types'
-import { exportToDesktop, generateMetaYAML, loadServiceTree, parseLinks } from './utils/wails'
+import { exportToDesktop, generateMetaYAML, getUpdateStatus, loadServiceTree, parseLinks, startUpdateCheck } from './utils/wails'
 
 const md = new MarkdownIt({ html: false, linkify: true, breaks: true })
 
@@ -18,6 +19,13 @@ const activeStep = ref(0)
 const inputText = ref('')
 const parsing = ref(false)
 const generating = ref(false)
+const updateStatus = ref<UpdateStatus>({
+  running: true,
+  completed: false,
+  progress: 0,
+  message: '准备检查更新...',
+  steps: []
+})
 
 const nodes = ref<ProxyNode[]>([])
 const parseErrors = ref<ParseReport['errors']>([])
@@ -43,10 +51,13 @@ const directCIDRText = ref('')
 const selectionState = reactive<Record<string, { enabled: boolean; policy: string }>>({})
 
 const yamlPreview = ref('')
+const isUpdateReady = computed(() => updateStatus.value.completed)
+const updateFailureCount = computed(() => updateStatus.value.steps.filter((item) => item.status === 'failed').length)
 
 const guideMarkdown = `# Meta-Link Pro 使用指南
 
 > 安全提示：**所有数据仅在本地处理，不上传服务器**。
+> 启动流程：工具会先检查规则集与 GEOSITE/GEOIP 依赖源状态，完成前会锁定解析与导出功能。
 
 ## Step 1 导入链接
 - 粘贴单链、多链或订阅链接（http/https）。
@@ -57,9 +68,9 @@ const guideMarkdown = `# Meta-Link Pro 使用指南
 - 在“平台/类别”树中为每个服务指定策略：\`DIRECT\`、\`Proxy_Group\` 或具体节点。
 - 分流树标题会显示各分类的服务数量，便于快速定位大类。
 - 选择全局模式：
-  - 白名单：勾选服务默认走代理（你也可改成 DIRECT/指定节点）。
+  - 白名单：勾选服务默认走代理（你也可改成 DIRECT/指定节点），未命中流量兜底直连（\`MATCH,DIRECT\`）。
   - 黑名单：勾选服务默认走直连（用于“只把这些服务直连”）。
-- 国内流量固定直连，国外流量默认走代理兜底；分流规则优先于全局兜底。
+- 国内流量固定直连（\`GEOSITE/CN + GEOIP/CN\`），分流规则优先于全局兜底。
 - 可选：通过“前置代理(入口，多选) + 落地代理(出口，单选)”配置链式代理（\`dialer-proxy\`）。
 
 ## Step 3 预览与导出
@@ -124,6 +135,25 @@ const chainRouteRows = computed(() => {
       exitName: nodeNameById(route.exitNodeId)
     }))
     .filter((item) => item.entryName && item.exitName)
+})
+
+const chainTopologyRows = computed(() => {
+  const grouped = new Map<string, { exitName: string; entries: string[] }>()
+  chainRouteRows.value.forEach((route) => {
+    const current = grouped.get(route.exitNodeId) ?? { exitName: route.exitName, entries: [] }
+    if (!current.entries.includes(route.entryName)) {
+      current.entries.push(route.entryName)
+    }
+    grouped.set(route.exitNodeId, current)
+  })
+
+  return Array.from(grouped.entries())
+    .map(([exitNodeId, item]) => ({
+      exitNodeId,
+      exitName: item.exitName,
+      entries: item.entries.sort((a, b) => a.localeCompare(b))
+    }))
+    .sort((a, b) => a.exitName.localeCompare(b.exitName))
 })
 
 let parseTimer: ReturnType<typeof setTimeout> | null = null
@@ -277,7 +307,55 @@ async function loadServices() {
   }
 }
 
+function normalizeProgress(value: number): number {
+  if (Number.isNaN(value)) return 0
+  if (value < 0) return 0
+  if (value > 100) return 100
+  return Math.round(value)
+}
+
+async function initializeUpdateCheck() {
+  try {
+    updateStatus.value = await startUpdateCheck()
+  } catch (error) {
+    updateStatus.value = {
+      running: false,
+      completed: true,
+      progress: 100,
+      message: `更新检查启动失败：${(error as Error).message}`,
+      steps: []
+    }
+    return
+  }
+
+  if (updateStatus.value.completed) {
+    updateStatus.value.progress = normalizeProgress(updateStatus.value.progress || 100)
+    return
+  }
+
+  while (true) {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    try {
+      const latest = await getUpdateStatus()
+      latest.progress = normalizeProgress(latest.progress)
+      updateStatus.value = latest
+      if (latest.completed) {
+        return
+      }
+    } catch {
+      // Keep polling until backend report becomes available again.
+    }
+  }
+}
+
 async function handleParse(silent = false) {
+  if (!isUpdateReady.value) {
+    if (!silent) {
+      ElMessage.warning('依赖更新检查尚未完成，请稍候')
+    }
+    return
+  }
+
   if (!inputText.value.trim()) {
     nodes.value = []
     parseErrors.value = []
@@ -385,6 +463,11 @@ function buildNodesWithChainRoutes(baseNodes: ProxyNode[]) {
 }
 
 async function handleGenerate() {
+  if (!isUpdateReady.value) {
+    ElMessage.warning('依赖更新检查尚未完成，请稍候')
+    return
+  }
+
   generating.value = true
   try {
     const routePrepared = buildNodesWithChainRoutes(nodes.value)
@@ -409,6 +492,11 @@ async function handleGenerate() {
 }
 
 async function handleExport() {
+  if (!isUpdateReady.value) {
+    ElMessage.warning('依赖更新检查尚未完成，请稍候')
+    return
+  }
+
   if (!yamlPreview.value.trim()) {
     ElMessage.warning('请先生成 YAML')
     return
@@ -422,6 +510,7 @@ async function handleExport() {
 }
 
 onMounted(async () => {
+  await initializeUpdateCheck()
   await loadServices()
 })
 </script>
@@ -437,6 +526,37 @@ onMounted(async () => {
         <el-tag type="success" effect="dark">本地处理 · 无服务器上传</el-tag>
       </div>
     </header>
+
+    <section class="mb-6 rounded-2xl glass p-5">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
+        <h2 class="font-display text-xl">启动依赖检查</h2>
+        <el-tag :type="isUpdateReady ? 'success' : 'warning'" effect="dark">
+          {{ isUpdateReady ? '检查完成' : '检查中' }}
+        </el-tag>
+      </div>
+      <el-progress
+        :percentage="normalizeProgress(updateStatus.progress)"
+        :status="isUpdateReady ? 'success' : undefined"
+        :stroke-width="14"
+      />
+      <p class="text-xs text-slate-300 mt-2">{{ updateStatus.message }}</p>
+      <p v-if="isUpdateReady && updateFailureCount > 0" class="text-xs text-amber-300 mt-1">
+        有 {{ updateFailureCount }} 个依赖源检查失败，工具仍可使用，建议稍后重试网络环境。
+      </p>
+      <div class="mt-3 max-h-28 overflow-auto pr-1 space-y-1">
+        <div
+          v-for="(step, idx) in updateStatus.steps"
+          :key="`update-step-${idx}-${step.url}`"
+          class="text-xs rounded-md bg-slate-900/40 px-2 py-1 border border-slate-700/70"
+        >
+          <span class="font-medium">{{ step.name }}</span>
+          <span class="mx-1">·</span>
+          <span>{{ step.status }}</span>
+          <span class="mx-1">·</span>
+          <span class="text-slate-300">{{ step.detail }}</span>
+        </div>
+      </div>
+    </section>
 
     <section class="mb-6 rounded-2xl glass p-5">
       <el-steps :active="activeStep" finish-status="success" simple>
@@ -463,8 +583,8 @@ onMounted(async () => {
         />
 
         <div class="mt-4 flex flex-wrap items-center gap-3">
-          <el-button type="primary" :loading="parsing" @click="handleParse()">立即解析</el-button>
-          <el-button :disabled="nodes.length === 0" @click="setStep(1)">下一步</el-button>
+          <el-button type="primary" :loading="parsing" :disabled="!isUpdateReady" @click="handleParse()">立即解析</el-button>
+          <el-button :disabled="nodes.length === 0 || !isUpdateReady" @click="setStep(1)">下一步</el-button>
           <span class="text-xs text-slate-300">解析结果会实时刷新</span>
         </div>
 
@@ -509,7 +629,8 @@ onMounted(async () => {
             </el-radio-group>
             <p class="text-xs text-slate-400 mt-2">
               白名单示例：启用 <code>YouTube</code> 且策略为 <code>Proxy_Group</code>，则 YouTube 走代理。黑名单示例：启用
-              <code>GitHub</code> 且策略为 <code>DIRECT</code>，则 GitHub 强制直连。两种模式下均为“国内直连，国外默认代理兜底”。
+              <code>GitHub</code> 且策略为 <code>DIRECT</code>，则 GitHub 强制直连。白名单兜底为 <code>MATCH,DIRECT</code>，黑名单兜底为
+              <code>MATCH,Proxy_Group</code>。
             </p>
           </div>
           <div>
@@ -576,6 +697,13 @@ onMounted(async () => {
         </div>
 
         <div class="mt-4 space-y-2 max-h-48 overflow-auto pr-1">
+          <div class="rounded-lg bg-slate-900/50 px-3 py-2 border border-slate-700/70">
+            <div class="text-xs text-slate-300 mb-2">链路拓扑预览（入口 → 出口）</div>
+            <div v-if="chainTopologyRows.length === 0" class="text-xs text-slate-400">暂无拓扑</div>
+            <div v-for="item in chainTopologyRows" :key="`topo-${item.exitNodeId}`" class="text-xs text-slate-200">
+              {{ item.entries.join(' , ') }} → {{ item.exitName }}
+            </div>
+          </div>
           <div
             v-for="route in chainRouteRows"
             :key="`route-${route.key}`"
@@ -633,7 +761,7 @@ onMounted(async () => {
 
       <div class="flex flex-wrap gap-3">
         <el-button @click="setStep(0)">上一步</el-button>
-        <el-button type="primary" :loading="generating" @click="handleGenerate">生成 YAML</el-button>
+        <el-button type="primary" :loading="generating" :disabled="!isUpdateReady" @click="handleGenerate">生成 YAML</el-button>
       </div>
     </section>
 
@@ -643,7 +771,7 @@ onMounted(async () => {
           <h2 class="font-display text-xl">YAML 预览</h2>
           <div class="flex gap-2">
             <el-button @click="setStep(1)">返回调整</el-button>
-            <el-button type="primary" @click="handleExport">导出到桌面</el-button>
+            <el-button type="primary" :disabled="!isUpdateReady" @click="handleExport">导出到桌面</el-button>
           </div>
         </div>
         <pre class="code-area rounded-xl p-4 overflow-auto text-sm leading-6"><code v-html="highlightedYaml" /></pre>

@@ -161,6 +161,24 @@ var builtinProviders = map[string]providerMeta{
 	},
 }
 
+func RuleProviderURLs() []string {
+	seen := make(map[string]struct{})
+	urls := make([]string, 0, len(builtinProviders))
+	for _, meta := range builtinProviders {
+		url := strings.TrimSpace(meta.URL)
+		if url == "" {
+			continue
+		}
+		if _, ok := seen[url]; ok {
+			continue
+		}
+		seen[url] = struct{}{}
+		urls = append(urls, url)
+	}
+	sort.Strings(urls)
+	return urls
+}
+
 func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	proxyGroup := strings.TrimSpace(req.ProxyGroupName)
 	if proxyGroup == "" {
@@ -172,15 +190,18 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 		return "", fmt.Errorf("请至少选择一个节点")
 	}
 
-	serviceTree := req.ServicesSnapshot
-	if len(serviceTree) == 0 {
-		loaded, err := services.LoadServiceTree()
-		if err != nil {
-			return "", err
+	serviceMap := map[string]models.ServiceTree{}
+	if len(req.Selections) > 0 {
+		serviceTree := req.ServicesSnapshot
+		if len(serviceTree) == 0 {
+			loaded, err := services.LoadServiceTree()
+			if err != nil {
+				return "", err
+			}
+			serviceTree = loaded
 		}
-		serviceTree = loaded
+		serviceMap = services.FlattenServices(serviceTree)
 	}
-	serviceMap := services.FlattenServices(serviceTree)
 
 	providerNames := map[string]struct{}{
 		"private": {},
@@ -305,7 +326,11 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	builder.WriteString("  - RULE-SET,cn,DIRECT\n")
 	builder.WriteString("  - GEOSITE,CN,DIRECT\n")
 	builder.WriteString("  - GEOIP,CN,DIRECT,no-resolve\n")
-	builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", proxyGroup))
+	if req.Mode == models.ModeWhitelist {
+		builder.WriteString("  - MATCH,DIRECT\n")
+	} else {
+		builder.WriteString(fmt.Sprintf("  - MATCH,%s\n", proxyGroup))
+	}
 
 	return builder.String(), nil
 }

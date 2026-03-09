@@ -62,6 +62,23 @@ export interface ParseReport {
   errors: ParseIssue[]
 }
 
+export interface UpdateStep {
+  name: string
+  url: string
+  status: 'running' | 'ok' | 'failed' | string
+  detail: string
+}
+
+export interface UpdateStatus {
+  running: boolean
+  completed: boolean
+  progress: number
+  message: string
+  startedAt?: string
+  finishedAt?: string
+  steps: UpdateStep[]
+}
+
 export interface GenerateMetaYAMLRequest {
   nodes: ProxyNode[]
   selectedNodeIds: string[]

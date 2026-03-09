@@ -25,6 +25,17 @@ var (
 	ss2022Regex = regexp.MustCompile(`(?i)^2022-[a-z0-9-]+$`)
 )
 
+const (
+	subscriptionFetchTimeout       = 10 * time.Second
+	maxSubscriptionBodyBytes       = 2 * 1024 * 1024
+	maxSubscriptionFetchesPerInput = 3
+	maxSubscriptionURLLength       = 2048
+)
+
+var subscriptionHTTPClient = &http.Client{
+	Timeout: subscriptionFetchTimeout,
+}
+
 func ParseInput(raw string) models.ParseReport {
 	report := models.ParseReport{}
 	content := strings.TrimSpace(raw)
@@ -310,7 +321,12 @@ func parseVMess(raw string) (models.ProxyNode, *models.ParseIssue) {
 }
 
 func parseSubscription(subscriptionURL string) ([]models.ProxyNode, []models.ParseIssue) {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	subscriptionURL = strings.TrimSpace(subscriptionURL)
+	if len(subscriptionURL) > maxSubscriptionURLLength {
+		return nil, []models.ParseIssue{{Protocol: "SUB", Field: "url", Message: fmt.Sprintf("[订阅] URL 过长(>%d)", maxSubscriptionURLLength)}}
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), subscriptionFetchTimeout)
 	defer cancel()
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, subscriptionURL, nil)
@@ -319,7 +335,7 @@ func parseSubscription(subscriptionURL string) ([]models.ProxyNode, []models.Par
 	}
 	req.Header.Set("User-Agent", "Meta-Link-Pro/1.0")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := subscriptionHTTPClient.Do(req)
 	if err != nil {
 		return nil, []models.ParseIssue{{Protocol: "SUB", Field: "network", Message: fmt.Sprintf("[订阅] 拉取失败: %v", err)}}
 	}
@@ -328,10 +344,16 @@ func parseSubscription(subscriptionURL string) ([]models.ProxyNode, []models.Par
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		return nil, []models.ParseIssue{{Protocol: "SUB", Field: "status", Message: fmt.Sprintf("[订阅] HTTP 状态异常: %d", resp.StatusCode)}}
 	}
+	if resp.ContentLength > maxSubscriptionBodyBytes {
+		return nil, []models.ParseIssue{{Protocol: "SUB", Field: "body", Message: fmt.Sprintf("[订阅] 响应体超过限制(%dMB)", maxSubscriptionBodyBytes/(1024*1024))}}
+	}
 
-	body, err := io.ReadAll(resp.Body)
+	body, err := io.ReadAll(io.LimitReader(resp.Body, maxSubscriptionBodyBytes+1))
 	if err != nil {
 		return nil, []models.ParseIssue{{Protocol: "SUB", Field: "body", Message: "[订阅] 响应体读取失败"}}
+	}
+	if len(body) > maxSubscriptionBodyBytes {
+		return nil, []models.ParseIssue{{Protocol: "SUB", Field: "body", Message: fmt.Sprintf("[订阅] 响应体超过限制(%dMB)", maxSubscriptionBodyBytes/(1024*1024))}}
 	}
 
 	content := strings.TrimSpace(string(body))
@@ -377,8 +399,18 @@ func parseContentBlock(content string, allowSubscriptionFetch bool) ([]models.Pr
 	}
 
 	hasProxyScheme := containsProxySchemeMarker(content)
+	subscriptionFetchCount := 0
 	for _, link := range links {
 		if allowSubscriptionFetch && shouldFetchSubscription(link, len(links), hasProxyScheme) {
+			if subscriptionFetchCount >= maxSubscriptionFetchesPerInput {
+				errs = append(errs, models.ParseIssue{
+					Protocol: "SUB",
+					Field:    "count",
+					Message:  fmt.Sprintf("[订阅] 最多处理 %d 个订阅链接，其余已跳过", maxSubscriptionFetchesPerInput),
+				})
+				continue
+			}
+			subscriptionFetchCount++
 			subNodes, subErrs := parseSubscription(link)
 			nodes = append(nodes, subNodes...)
 			errs = append(errs, subErrs...)

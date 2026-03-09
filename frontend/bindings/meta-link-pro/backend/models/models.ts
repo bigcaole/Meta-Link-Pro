@@ -304,6 +304,82 @@ export class ServiceTree {
     }
 }
 
+export class UpdateStatus {
+    "running": boolean;
+    "completed": boolean;
+    "progress": number;
+    "message": string;
+    "startedAt"?: string;
+    "finishedAt"?: string;
+    "steps": UpdateStep[];
+
+    /** Creates a new UpdateStatus instance. */
+    constructor($$source: Partial<UpdateStatus> = {}) {
+        if (!("running" in $$source)) {
+            this["running"] = false;
+        }
+        if (!("completed" in $$source)) {
+            this["completed"] = false;
+        }
+        if (!("progress" in $$source)) {
+            this["progress"] = 0;
+        }
+        if (!("message" in $$source)) {
+            this["message"] = "";
+        }
+        if (!("steps" in $$source)) {
+            this["steps"] = [];
+        }
+
+        Object.assign(this, $$source);
+    }
+
+    /**
+     * Creates a new UpdateStatus instance from a string or object.
+     */
+    static createFrom($$source: any = {}): UpdateStatus {
+        const $$createField6_0 = $$createType10;
+        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
+        if ("steps" in $$parsedSource) {
+            $$parsedSource["steps"] = $$createField6_0($$parsedSource["steps"]);
+        }
+        return new UpdateStatus($$parsedSource as Partial<UpdateStatus>);
+    }
+}
+
+export class UpdateStep {
+    "name": string;
+    "url": string;
+    "status": string;
+    "detail": string;
+
+    /** Creates a new UpdateStep instance. */
+    constructor($$source: Partial<UpdateStep> = {}) {
+        if (!("name" in $$source)) {
+            this["name"] = "";
+        }
+        if (!("url" in $$source)) {
+            this["url"] = "";
+        }
+        if (!("status" in $$source)) {
+            this["status"] = "";
+        }
+        if (!("detail" in $$source)) {
+            this["detail"] = "";
+        }
+
+        Object.assign(this, $$source);
+    }
+
+    /**
+     * Creates a new UpdateStep instance from a string or object.
+     */
+    static createFrom($$source: any = {}): UpdateStep {
+        let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
+        return new UpdateStep($$parsedSource as Partial<UpdateStep>);
+    }
+}
+
 // Private type creation functions
 const $$createType0 = ProxyNode.createFrom;
 const $$createType1 = $Create.Array($$createType0);
@@ -314,3 +390,5 @@ const $$createType5 = ServiceTree.createFrom;
 const $$createType6 = $Create.Array($$createType5);
 const $$createType7 = ParseIssue.createFrom;
 const $$createType8 = $Create.Array($$createType7);
+const $$createType9 = UpdateStep.createFrom;
+const $$createType10 = $Create.Array($$createType9);
