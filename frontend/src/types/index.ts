@@ -44,6 +44,9 @@ export interface ServiceTree {
   kind: 'platform' | 'category' | 'service'
   provider?: string
   ruleType?: string
+  domains?: string[]
+  keywords?: string[]
+  ipCidrs?: string[]
   defaultOut?: string
   children?: ServiceTree[]
 }

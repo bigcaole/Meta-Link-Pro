@@ -188,7 +188,8 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 		"geolocation-!cn": {},
 	}
 
-	specificRules := make([]string, 0)
+	providerRules := make([]string, 0)
+	serviceRules := make([]string, 0)
 	for _, s := range req.Selections {
 		if !s.Enabled {
 			continue
@@ -206,7 +207,18 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 				policy = proxyGroup
 			}
 		}
-		specificRules = append(specificRules, fmt.Sprintf("RULE-SET,%s,%s", item.Provider, policy))
+
+		providerBound := false
+		if item.Provider != "" {
+			if _, exists := builtinProviders[item.Provider]; exists {
+				providerNames[item.Provider] = struct{}{}
+				providerRules = append(providerRules, fmt.Sprintf("RULE-SET,%s,%s", item.Provider, policy))
+				providerBound = true
+			}
+		}
+		if !providerBound {
+			serviceRules = append(serviceRules, buildServiceRules(item, policy)...)
+		}
 	}
 
 	directCIDRRules := make([]string, 0)
@@ -217,7 +229,8 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	}
 
 	sort.Strings(directCIDRRules)
-	sort.Strings(specificRules)
+	sort.Strings(serviceRules)
+	sort.Strings(providerRules)
 
 	builder := &strings.Builder{}
 	builder.WriteString("mixed-port: 7890\n")
@@ -282,7 +295,10 @@ func GenerateMetaYAML(req models.GenerateMetaYAMLRequest) (string, error) {
 	for _, rule := range directCIDRRules {
 		builder.WriteString(fmt.Sprintf("  - %s\n", rule))
 	}
-	for _, rule := range specificRules {
+	for _, rule := range serviceRules {
+		builder.WriteString(fmt.Sprintf("  - %s\n", rule))
+	}
+	for _, rule := range providerRules {
 		builder.WriteString(fmt.Sprintf("  - %s\n", rule))
 	}
 
@@ -459,6 +475,50 @@ func splitCSV(value string) []string {
 		}
 		out = append(out, p)
 	}
+	return out
+}
+
+func buildServiceRules(item models.ServiceTree, policy string) []string {
+	out := make([]string, 0, len(item.Domains)+len(item.Keywords)+len(item.IPCIDRs))
+	seen := make(map[string]struct{})
+
+	for _, domain := range item.Domains {
+		domain = strings.TrimSpace(strings.TrimPrefix(strings.TrimPrefix(domain, "*."), "."))
+		if domain == "" {
+			continue
+		}
+		rule := fmt.Sprintf("DOMAIN-SUFFIX,%s,%s", domain, policy)
+		if _, ok := seen[rule]; ok {
+			continue
+		}
+		seen[rule] = struct{}{}
+		out = append(out, rule)
+	}
+
+	for _, keyword := range item.Keywords {
+		keyword = strings.TrimSpace(keyword)
+		if keyword == "" {
+			continue
+		}
+		rule := fmt.Sprintf("DOMAIN-KEYWORD,%s,%s", keyword, policy)
+		if _, ok := seen[rule]; ok {
+			continue
+		}
+		seen[rule] = struct{}{}
+		out = append(out, rule)
+	}
+
+	for _, cidr := range item.IPCIDRs {
+		if normalized := normalizeCIDR(cidr); normalized != "" {
+			rule := fmt.Sprintf("IP-CIDR,%s,%s,no-resolve", normalized, policy)
+			if _, ok := seen[rule]; ok {
+				continue
+			}
+			seen[rule] = struct{}{}
+			out = append(out, rule)
+		}
+	}
+
 	return out
 }
 

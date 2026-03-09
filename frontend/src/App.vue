@@ -27,6 +27,15 @@ const services = ref<ServiceTree[]>([])
 const searchKeyword = ref('')
 const openedPanels = ref<string[]>([])
 
+interface ChainRoute {
+  entryNodeId: string
+  exitNodeId: string
+}
+
+const chainEntryNodeId = ref('')
+const chainExitNodeId = ref('')
+const chainRoutes = ref<ChainRoute[]>([])
+
 const mode = ref<ParseMode>('whitelist')
 const proxyGroupName = ref('Proxy_Group')
 const directCIDRText = ref('')
@@ -46,10 +55,11 @@ const guideMarkdown = `# Meta-Link Pro 使用指南
 ## Step 2 配置分流
 - 输入强制直连 IP/CIDR（每行一个，如 \`192.168.1.100\`）。
 - 在“平台/类别”树中为每个服务指定策略：\`DIRECT\`、\`Proxy_Group\` 或具体节点。
+- 分流树标题会显示各分类的服务数量，便于快速定位大类。
 - 选择全局模式：
   - 白名单：只代理已勾选服务，其余直连。
   - 黑名单：默认代理，仅把勾选服务设为直连或自定义策略。
-- 可选：设置节点链式前置代理（\`dialer-proxy\`）。
+- 可选：通过“前置代理(入口) + 落地代理(出口)”配置链式代理（\`dialer-proxy\`）。
 
 ## Step 3 预览与导出
 - 实时生成并高亮 YAML。
@@ -103,6 +113,17 @@ const highlightedYaml = computed(() => {
     .replace(/\b(RULE-SET|MATCH|IP-CIDR|DIRECT|Proxy_Group)\b/g, '<span class="text-emerald-300">$1</span>')
 })
 
+const chainRouteRows = computed(() => {
+  return chainRoutes.value
+    .map((route) => ({
+      entryNodeId: route.entryNodeId,
+      exitNodeId: route.exitNodeId,
+      entryName: nodeNameById(route.entryNodeId),
+      exitName: nodeNameById(route.exitNodeId)
+    }))
+    .filter((item) => item.entryName && item.exitName)
+})
+
 let parseTimer: ReturnType<typeof setTimeout> | null = null
 
 watch(
@@ -123,6 +144,7 @@ watch(
     if (selectedNodeIds.value.length === 0) {
       selectedNodeIds.value = newIDs
     }
+    syncChainRoutesWithNodes(newNodes)
   },
   { deep: true }
 )
@@ -149,6 +171,90 @@ function ensureLeafState(serviceID: string) {
     }
   }
   return selectionState[serviceID]
+}
+
+function findNodeById(nodeId: string): ProxyNode | undefined {
+  return nodes.value.find((item) => item.id === nodeId)
+}
+
+function nodeNameById(nodeId: string): string {
+  return findNodeById(nodeId)?.name ?? ''
+}
+
+function syncChainRoutesWithNodes(currentNodes: ProxyNode[]) {
+  const idSet = new Set(currentNodes.map((item) => item.id))
+  const nameToId = new Map(currentNodes.map((item) => [item.name, item.id]))
+
+  chainRoutes.value = chainRoutes.value.filter((route) => {
+    return idSet.has(route.entryNodeId) && idSet.has(route.exitNodeId) && route.entryNodeId !== route.exitNodeId
+  })
+
+  const existingExit = new Set(chainRoutes.value.map((route) => route.exitNodeId))
+  currentNodes.forEach((exitNode) => {
+    if (!exitNode.dialerProxy) return
+    const entryNodeId = nameToId.get(exitNode.dialerProxy)
+    if (!entryNodeId || entryNodeId === exitNode.id || existingExit.has(exitNode.id)) return
+    chainRoutes.value.push({
+      entryNodeId,
+      exitNodeId: exitNode.id
+    })
+    existingExit.add(exitNode.id)
+  })
+
+  chainRoutes.value.forEach((route) => {
+    const exitNode = currentNodes.find((item) => item.id === route.exitNodeId)
+    const entryNode = currentNodes.find((item) => item.id === route.entryNodeId)
+    if (exitNode && entryNode) {
+      exitNode.dialerProxy = entryNode.name
+    }
+  })
+}
+
+function applyChainRoute() {
+  if (!chainEntryNodeId.value || !chainExitNodeId.value) {
+    ElMessage.warning('请先选择前置代理和落地代理')
+    return
+  }
+  if (chainEntryNodeId.value === chainExitNodeId.value) {
+    ElMessage.warning('前置代理与落地代理不能是同一个节点')
+    return
+  }
+
+  const entryNode = findNodeById(chainEntryNodeId.value)
+  const exitNode = findNodeById(chainExitNodeId.value)
+  if (!entryNode || !exitNode) {
+    ElMessage.error('节点不存在，请重新选择')
+    return
+  }
+
+  exitNode.dialerProxy = entryNode.name
+  const index = chainRoutes.value.findIndex((item) => item.exitNodeId === exitNode.id)
+  if (index >= 0) {
+    chainRoutes.value[index] = { entryNodeId: entryNode.id, exitNodeId: exitNode.id }
+  } else {
+    chainRoutes.value.push({ entryNodeId: entryNode.id, exitNodeId: exitNode.id })
+  }
+
+  ElMessage.success(`已设置链路：${entryNode.name} -> ${exitNode.name}`)
+}
+
+function removeChainRoute(exitNodeId: string) {
+  chainRoutes.value = chainRoutes.value.filter((item) => item.exitNodeId !== exitNodeId)
+  const exitNode = findNodeById(exitNodeId)
+  if (exitNode) {
+    exitNode.dialerProxy = ''
+  }
+}
+
+function clearChainRoutes() {
+  chainRoutes.value = []
+  nodes.value.forEach((node) => {
+    node.dialerProxy = ''
+  })
+}
+
+function groupTitle(group: ServiceTree): string {
+  return `${group.name} (${collectLeafServices(group).length})`
 }
 
 async function loadServices() {
@@ -366,18 +472,40 @@ onMounted(async () => {
 
       <div class="rounded-2xl glass p-5">
         <h2 class="mb-3 font-display text-xl">链式代理 (Dialer Proxy)</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div v-for="node in nodes" :key="`dial-${node.id}`" class="rounded-lg bg-slate-900/50 px-3 py-2 border border-slate-700/70">
-            <div class="text-sm mb-2">{{ node.name }}</div>
-            <el-select v-model="node.dialerProxy" clearable placeholder="无前置代理" class="w-full">
-              <el-option
-                v-for="candidate in nodes.filter((it) => it.id !== node.id)"
-                :key="candidate.id"
-                :label="candidate.name"
-                :value="candidate.name"
-              />
-            </el-select>
+        <p class="text-xs text-slate-300 mb-3">先选前置代理(入口节点)，再选落地代理(出口节点)。生效后将写入落地节点的 <code>dialer-proxy</code>。</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <el-select v-model="chainEntryNodeId" placeholder="选择前置代理(入口)">
+            <el-option
+              v-for="candidate in nodes"
+              :key="`entry-${candidate.id}`"
+              :label="candidate.name"
+              :value="candidate.id"
+            />
+          </el-select>
+          <el-select v-model="chainExitNodeId" placeholder="选择落地代理(出口)">
+            <el-option
+              v-for="candidate in nodes.filter((it) => it.id !== chainEntryNodeId)"
+              :key="`exit-${candidate.id}`"
+              :label="candidate.name"
+              :value="candidate.id"
+            />
+          </el-select>
+          <div class="flex gap-2">
+            <el-button type="primary" @click="applyChainRoute">应用链路</el-button>
+            <el-button @click="clearChainRoutes">清空链路</el-button>
           </div>
+        </div>
+
+        <div class="mt-4 space-y-2 max-h-48 overflow-auto pr-1">
+          <div
+            v-for="route in chainRouteRows"
+            :key="`route-${route.entryNodeId}-${route.exitNodeId}`"
+            class="rounded-lg bg-slate-900/50 px-3 py-2 border border-slate-700/70 flex items-center justify-between gap-3"
+          >
+            <div class="text-sm text-slate-100">{{ route.entryName }} → {{ route.exitName }}</div>
+            <el-button size="small" type="danger" plain @click="removeChainRoute(route.exitNodeId)">删除</el-button>
+          </div>
+          <div v-if="chainRouteRows.length === 0" class="text-xs text-slate-400">暂无链式代理配置</div>
         </div>
       </div>
 
@@ -392,7 +520,7 @@ onMounted(async () => {
             v-for="group in filteredServices"
             :key="group.id"
             :name="group.id"
-            :title="group.name"
+            :title="groupTitle(group)"
           >
             <div class="space-y-3">
               <div

@@ -258,6 +258,9 @@ export class ServiceTree {
     "kind": string;
     "provider"?: string;
     "ruleType"?: string;
+    "domains"?: string[];
+    "keywords"?: string[];
+    "ipCidrs"?: string[];
     "defaultOut"?: string;
     "children"?: ServiceTree[];
 
@@ -280,10 +283,22 @@ export class ServiceTree {
      * Creates a new ServiceTree instance from a string or object.
      */
     static createFrom($$source: any = {}): ServiceTree {
-        const $$createField6_0 = $$createType6;
+        const $$createField5_0 = $$createType2;
+        const $$createField6_0 = $$createType2;
+        const $$createField7_0 = $$createType2;
+        const $$createField9_0 = $$createType6;
         let $$parsedSource = typeof $$source === 'string' ? JSON.parse($$source) : $$source;
+        if ("domains" in $$parsedSource) {
+            $$parsedSource["domains"] = $$createField5_0($$parsedSource["domains"]);
+        }
+        if ("keywords" in $$parsedSource) {
+            $$parsedSource["keywords"] = $$createField6_0($$parsedSource["keywords"]);
+        }
+        if ("ipCidrs" in $$parsedSource) {
+            $$parsedSource["ipCidrs"] = $$createField7_0($$parsedSource["ipCidrs"]);
+        }
         if ("children" in $$parsedSource) {
-            $$parsedSource["children"] = $$createField6_0($$parsedSource["children"]);
+            $$parsedSource["children"] = $$createField9_0($$parsedSource["children"]);
         }
         return new ServiceTree($$parsedSource as Partial<ServiceTree>);
     }

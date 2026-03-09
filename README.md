@@ -16,6 +16,8 @@ Meta-Link Pro 是一个基于 **Go + Wails v3 + Vue3 + Tailwind + Element Plus**
   - 白名单/黑名单模式切换
   - `dialer-proxy` 链式代理输出
 - 前端三步流程：导入解析 -> 分流配置 -> YAML 预览与导出
+- 链式代理交互升级：显式“前置代理(入口) -> 落地代理(出口)”配置器
+- 分流对象树扩容：平台与分类（购物/短视频/影视/直播/成人/开发/社交/游戏/AI）及大量服务项
 - 导出：后端 `ExportToDesktop` 写入系统桌面
 - Wails GUI 主入口：`main.go`（已接入真实桌面窗口与服务绑定）
 - CLI 可执行入口：`cmd/metalink-cli/main.go`（可选）

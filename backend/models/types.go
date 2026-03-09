@@ -69,6 +69,9 @@ type ServiceTree struct {
 	Kind       string        `json:"kind"`
 	Provider   string        `json:"provider,omitempty"`
 	RuleType   string        `json:"ruleType,omitempty"`
+	Domains    []string      `json:"domains,omitempty"`
+	Keywords   []string      `json:"keywords,omitempty"`
+	IPCIDRs    []string      `json:"ipCidrs,omitempty"`
 	DefaultOut string        `json:"defaultOut,omitempty"`
 	Children   []ServiceTree `json:"children,omitempty"`
 }
